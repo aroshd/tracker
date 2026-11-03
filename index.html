@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A/L 2027 Tracker</title>
+<style>
+:root{color-scheme:dark;--bg:#0d1420;--card:rgba(255,255,255,.07);--rb:rgba(255,255,255,.1);--pop:#18202e;--tx:#eef2f8;--mu:#9aa6ba;--bd:rgba(255,255,255,.15);--ac:#ffb02e;--ok:#4ade80;--tr:rgba(255,255,255,.1);--fill:linear-gradient(90deg,#ff9f1c,#ffd23f);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="light"]{color-scheme:light;--bg:#e8edf6;--card:rgba(255,255,255,.7);--rb:rgba(255,255,255,.9);--pop:#fff;--tx:#18202e;--mu:#5b677b;--bd:rgba(20,30,50,.14);--ac:#e08a00;--ok:#16a34a;--tr:rgba(20,30,50,.1)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(600px 420px at 8% 4%,rgba(255,150,30,.28),transparent 60%),radial-gradient(620px 420px at 92% 14%,rgba(60,130,255,.28),transparent 60%),radial-gradient(520px 420px at 60% 100%,rgba(255,210,60,.15),transparent 60%),var(--bg);background-attachment:fixed;color:var(--tx);font:15px/1.5 Inter,"Segoe UI",system-ui,-apple-system,sans-serif;min-height:100vh}.c,.lr,header{backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 8px 28px rgba(0,0,0,.22)}
+.w{max-width:960px;margin:0 auto;padding:16px}
+header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px;background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:10px 16px}
+header h1{font-size:20px;margin:0;flex:1;cursor:pointer}
+button,input,select,textarea{font:inherit;color:inherit}
+.b{background:var(--rb);border:1px solid var(--bd);border-radius:12px;padding:6px 14px;cursor:pointer}
+.b:hover{border-color:var(--ac)}.b.p{background:var(--ac);color:#1a1000;border-color:var(--ac);font-weight:600}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:16px}.nt{border:0;position:relative}.nphy{background:linear-gradient(150deg,#ffa31a,#ff7a00);color:#2a1500}.ncmb{background:linear-gradient(150deg,#63a8ff,#3b6fe0);color:#06173a}.nchm{background:linear-gradient(150deg,#ffe066,#ffc300);color:#3a2a00}.nt .mu{color:inherit;opacity:.75}.nt .bar{background:rgba(0,0,0,.2);border-color:transparent}.nt .bar i{background:rgba(255,255,255,.92)}.nt .b{background:rgba(0,0,0,.28);color:#fff;border-color:transparent}
+.g{display:grid;gap:12px}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.g4{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+.st b{display:block;font-size:24px}.mu{color:var(--mu);font-size:13px}
+.bar{height:8px;background:var(--tr);border-radius:99px;overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:var(--fill);border-radius:99px;transition:width .4s}.bar.ok i{background:var(--ok)}
+.lr{border:1px solid var(--bd);border-radius:16px;background:var(--card);margin-bottom:8px;overflow:hidden}
+.lh{display:flex;align-items:center;gap:10px;padding:10px 12px;flex-wrap:wrap}
+.lh .t{flex:1;min-width:140px;font-weight:600;cursor:pointer}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.a{display:flex;align-items:center;gap:4px;font-size:12px;border:1px solid var(--bd);border-radius:99px;padding:3px 10px;cursor:pointer;user-select:none}
+.a.on{background:var(--ac);color:#1a1000;border-color:var(--ac);font-weight:600}
+input[type=checkbox].m{width:20px;height:20px;accent-color:var(--ok);cursor:pointer}
+.sub{padding:0 16px 12px 42px;color:var(--mu)}
+.f{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.f input,.f select{background:var(--tr);border:1px solid var(--bd);border-radius:12px;padding:8px 12px}.f input{flex:1;min-width:160px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center;z-index:9}
+.md{background:var(--pop);width:100%;max-width:560px;max-height:90vh;overflow:auto;border:1px solid var(--bd);border-radius:24px 24px 0 0;padding:18px;animation:up .25s}
+@media(min-width:600px){.ov{align-items:center}.md{border-radius:24px}}
+@keyframes up{from{transform:translateY(20px);opacity:0}}
+textarea,.md input{width:100%;background:var(--tr);border:1px solid var(--bd);border-radius:12px;padding:8px}
+.tag{font-size:11px;color:#b45309;border:1px solid #b45309;border-radius:6px;padding:0 5px;margin-left:6px}
+.rc{display:flex;align-items:end;gap:10px;height:90px}.rc div{flex:1;text-align:center;font-size:12px}.rc i{display:block;background:var(--fill);border-radius:8px 8px 0 0;transition:height .4s}.cmd{position:fixed;left:0;right:0;bottom:0;background:var(--rb);border-top:2px solid var(--ac);padding:6px 14px calc(6px + env(safe-area-inset-bottom,0px));font:12px/1.4 Consolas,Menlo,monospace;color:var(--mu);z-index:5}.cmd b{color:var(--ac)}.w{padding-bottom:48px}
+</style>
+</head>
+<body>
+<div class="w" id="app"></div>
+<script>
+/* ===== Central syllabus data (editable). v:1 = needs verification against official NIE syllabus ===== */
+const SYL=[
+{id:'phy',name:'Physics',icon:'⚛️',lessons:[
+["මිනුම්",["භෞතික විද්‍යාව හැඳින්වීම","භෞතික රාශි හා ඒකක","SI ඒකක පද්ධතිය","මූලික හා ව්‍යුත්පන්න රාශි","මාන (Dimensions)","මිනුම් උපකරණ","අවම මිනුම (Least Count)","මිනුම් දෝෂ","නිරපේක්ෂ, සාපේක්ෂ හා ප්‍රතිශත දෝෂ","Vernier Caliper","Micrometer Screw Gauge","Spherometer හා Travelling Microscope","Scalars හා Vectors","දෛශික එකතු කිරීම හා විභේදනය"],0],
+["යාන්ත්‍ර විද්‍යාව",["චලිතය හැඳින්වීම (Kinematics)","සාපේක්ෂ චලිතය","ඒකාකාර ත්වරණය","චලිත සමීකරණ","චලිත ප්‍රස්තාර (s-t, v-t)","ප්‍රක්ෂිප්ත චලිතය (Projectile Motion)","බල හා බල පද්ධති","බලවල සම්ප්‍රයුක්තය","බල ඝූර්ණය (Moment of Force)","යුග්ම බල (Couple)","ගුරුත්ව කේන්ද්‍රය හා ස්කන්ධ කේන්ද්‍රය","නිව්ටන්ගේ චලිත නියම","ගම්‍යතාව (Momentum)","ආවේගය (Impulse)","ගම්‍යතා සංස්ථිතිය","ඝර්ෂණය","ආතතිය හා අන්‍යෝන්‍ය ප්‍රතික්‍රියා බල","කාර්යය, ශක්තිය හා ජවය","ශක්ති සංස්ථිතිය","වෘත්ත චලිතය","කෝණික චලිතය"],0],
+["දෝලන හා තරංග",["සරල අනුවර්තී චලිතය (SHM)","දෝලනවල ලක්ෂණ","SHM හි විස්ථාපනය, වේගය හා ත්වරණය","SHM හි ශක්තිය","සරල අවලම්බය","තරංග හැඳින්වීම","තරංගවල ගුණ","තීර්යක් හා අන්වායාම තරංග","තරංග සමීකරණය","තරංග ප්‍රවේගය","තරංගවල පරාවර්තනය හා වර්තනය","සුපිරිස්ථාපනය","තරංග අතර අතුරුඵලනය (Interference)","ස්ථාවර තරංග","ධ්වනි තරංග","තන්තු හා වායු තීරු තුළ කම්පන","අනුනාදය","ඩොප්ලර් ආචරණය"],0],
+["තාප භෞතික විද්‍යාව",["උෂ්ණත්වය හා තාප සමතුලිතතාව","උෂ්ණත්වමාන","තාප ප්‍රසාරණය","ඝන හා ද්‍රවවල ප්‍රසාරණය","තාප හුවමාරුව","තාප ධාරිතාව හා විශිෂ්ට තාප ධාරිතාව","තාප හුවමාරු ක්‍රම","නිව්ටන්ගේ සිසිලන නියමය","අවස්ථා වෙනස්වීම්","විශිෂ්ට ගුප්ත තාපය","වාෂ්පීකරණය හා ආර්ද්‍රතාව","වාෂ්ප පීඩනය","තාප ගති විද්‍යාව","තාප ගති විද්‍යාවේ පළමු නියමය","වායු ක්‍රියාවලි","තාප සන්නයනය, සංවහනය හා විකිරණය"],0],
+["ගුරුත්වාකර්ෂණ ක්ෂේත්‍රය",["ගුරුත්වාකර්ෂණ බලය","නිව්ටන්ගේ විශ්ව ගුරුත්වාකර්ෂණ නියමය","ගුරුත්වාකර්ෂණ ක්ෂේත්‍රය","ක්ෂේත්‍ර තීව්‍රතාව","ගුරුත්වාකර්ෂණ විභවය","ගුරුත්වාකර්ෂණ විභව ශක්තිය","ග්‍රහලෝක හා චන්ද්‍රිකා චලිතය","කක්ෂීය චලිතය හා ශක්තිය"],0],
+["ස්ථිති විද්‍යුත් ක්ෂේත්‍රය",["විද්‍යුත් ආරෝපණ","කූලෝම් නියමය","විද්‍යුත් ක්ෂේත්‍රය","විද්‍යුත් ක්ෂේත්‍ර තීව්‍රතාව","විද්‍යුත් ක්ෂේත්‍ර රේඛා","විද්‍යුත් විභවය","විභව වෙනස","විද්‍යුත් විභව ශක්තිය","ධාරිත්‍රක (Capacitors)","ධාරිතාව","ධාරිත්‍රක සම්බන්ධ කිරීම","ධාරිත්‍රකවල ශක්තිය"],0],
+["චුම්බක ක්ෂේත්‍රය",["චුම්බක ක්ෂේත්‍රය","චුම්බක ක්ෂේත්‍ර රේඛා","චලිත ආරෝපණ මත චුම්බක බලය","ධාරාවක් ගලායන සන්නායකයක් මත බලය","චුම්බක ප්‍රේරණය","සෘජු සන්නායකයක චුම්බක ක්ෂේත්‍රය","වෘත්තාකාර දඟරයක චුම්බක ක්ෂේත්‍රය","සොලෙනොයිඩයක චුම්බක ක්ෂේත්‍රය","සමාන්තර ධාරා අතර බලය","චල දඟර ගැල්වනෝමීටරය","DC මෝටරය"],0],
+["ධාරා විද්‍යුතය",["විද්‍යුත් ධාරාව","ආරෝපණ ගලායාම","Drift Velocity","ධාරා ඝනත්වය","විභව වෙනස","ප්‍රතිරෝධය හා ප්‍රතිරෝධකතාව","ඕම් නියමය","ප්‍රතිරෝධක ශ්‍රේණිගත හා සමාන්තර සම්බන්ධ කිරීම","විදුලි ශක්තිය හා ජවය","විද්‍යුත් ගාමක බලය (EMF)","අභ්‍යන්තර ප්‍රතිරෝධය","කෝෂ සම්බන්ධ කිරීම","Kirchhoff නියම","විද්‍යුත් පරිපථ","මිනුම් පාලම් හා විභවමානය"],0],
+["ඉලෙක්ට්‍රොනික විද්‍යාව",["අර්ධ සන්නායක","අභ්‍යන්තර හා බාහිර අර්ධ සන්නායක","P-type හා N-type","PN සන්ධි ඩයෝඩ","ඩයෝඩවල ලක්ෂණ","සෘජු හා ප්‍රතිලෝම පක්ෂපාතී කිරීම","සෘජුකරණ පරිපථ","ට්‍රාන්සිස්ටර","ට්‍රාන්සිස්ටර ක්‍රියාකාරිත්වය","තාර්කික ද්වාර (Logic Gates)"],0],
+["පදාර්ථයේ යාන්ත්‍රික ගුණ",["ඝන ද්‍රව්‍යවල ප්‍රත්‍යාස්ථතාව","ආතතිය හා වික්‍රියාව","යං මාපාංකය","තරලවල පීඩනය","පැස්කල් නියමය","ආකිමිඩීස් මූලධර්මය","ද්‍රව ගලායාම","දුස්ස්‍රාවිතාව","පෘෂ්ඨික ආතතිය","කේශික ක්‍රියාව"],0],
+["පදාර්ථය හා විකිරණය",["පදාර්ථයේ අංශුමය ස්වභාවය","පරමාණුක ව්‍යුහය","විකිරණශීලීතාව","න්‍යෂ්ටික විකිරණ","අර්ධ ආයු කාලය","න්‍යෂ්ටික විඛණ්ඩනය","න්‍යෂ්ටික විලයනය","ප්‍රකාශ විද්‍යුත් ආචරණය","ෆෝටෝන හා ශක්තිය","පදාර්ථ තරංග"],0]]},
+{id:'cmb',name:'Combined Mathematics',icon:'📐',lessons:[
+["Pure Mathematics: Algebra",[],1],["Pure Mathematics: Trigonometry",[],1],["Pure Mathematics: Coordinate Geometry",[],1],["Pure Mathematics: Calculus",[],1],
+["Applied Mathematics: Statics",[],1],["Applied Mathematics: Dynamics",[],1],["Applied Mathematics: Statistics and Probability",[],1]]},
+{id:'chm',name:'Chemistry',icon:'🧪',lessons:[
+["Atomic Structure",[],1],["Structure and Bonding",[],1],["Chemical Calculations",[],1],["Gaseous State",[],1],["Energetics",[],1],["Chemical Kinetics",[],1],["Chemical Equilibrium",[],1],["Organic Chemistry",[],1],["Inorganic Chemistry",[],1],["Analytical Chemistry",[],1]]}
+];
+const ACT=[['t','📖','Theory'],['m','📝','Model Papers'],['p','📄','Past Papers'],['r','🔁','Revision']];
+const KEY='al2027_v1';
+/* ===== Storage layer (swap for a cloud DB later) ===== */
+const Store={load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return{}}},save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}};
+let S=Object.assign({lessons:{},theme:''},Store.load());
+let view='home',q='',flt='all',actF='any',open={},modal=null;
+const lid=(s,i)=>s.id+'-'+i;
+const L=id=>S.lessons[id]||(S.lessons[id]={t:0,m:0,p:0,r:0,notes:'',links:'',started:'',updated:''});
+const pr=id=>ACT.reduce((a,x)=>a+(L(id)[x[0]]?25:0),0);
+const lessons=s=>s.lessons.map((l,i)=>({n:l[0],sub:l[1],v:l[2],id:lid(s,i)}));
+const sp=s=>{const a=lessons(s);return a.length?Math.round(a.reduce((x,l)=>x+pr(l.id),0)/a.length):0};
+const sd=s=>lessons(s).filter(l=>pr(l.id)===100).length;
+const all=()=>SYL.flatMap(lessons);
+const tot=()=>{const a=all();return{n:a.length,d:a.filter(l=>pr(l.id)===100).length,p:a.length?Math.round(a.reduce((x,l)=>x+pr(l.id),0)/a.length):0}};
+const save=()=>{Store.save(S);render()};
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const bar=p=>`<div class="bar ${p===100?'ok':''}"><i style="width:${p}%"></i></div>`;
+function touch(id){const d=new Date().toISOString().slice(0,10),l=L(id);if(!l.started)l.started=d;l.updated=d}
+function toggle(id,k){const l=L(id);l[k]=l[k]?0:1;touch(id);save()}
+function main(id){const l=L(id);if(pr(id)===100){ACT.forEach(a=>l[a[0]]=0);touch(id);save()}else if(confirm('Mark all four activities as completed?')){ACT.forEach(a=>l[a[0]]=1);touch(id);save()}}
+function row(l){const p=pr(l.id),o=open[l.id];
+return `<div class="lr"><div class="lh"><input type="checkbox" class="m" ${p===100?'checked':''} data-main="${l.id}" aria-label="Complete ${esc(l.n)}">
+<span class="t" data-det="${l.id}">${esc(l.n)}${l.v?'<span class="tag">verify</span>':''}<span class="mu"> · ${p}%</span></span>
+<span class="acts">${ACT.map(a=>`<span class="a ${L(l.id)[a[0]]?'on':''}" data-tg="${l.id}|${a[0]}">${a[1]} ${a[2]}</span>`).join('')}</span>
+<button class="b" data-ex="${l.id}" aria-label="Toggle subtopics">${o?'▴':'▾'}</button></div>${bar(p)}
+${o?`<ol class="sub">${l.sub.length?l.sub.map(x=>`<li>${esc(x)}</li>`).join(''):'<li style="list-style:none;margin-left:-20px">Subtopics not added yet – edit SYL data</li>'}</ol>`:''}</div>`}
+function pass(l){const p=pr(l.id);if(q&&!l.n.toLowerCase().includes(q.toLowerCase()))return false;
+if(flt==='done'&&p!==100)return false;if(flt==='todo'&&p===100)return false;if(flt==='prog'&&!(p>0&&p<100))return false;
+if(actF==='any')return true;return !!L(l.id)[actF]}
+function home(){const t=tot();
+return `<div class="g g4"><div class="c st"><span class="mu">Overall</span><b>${t.p}%</b></div><div class="c st"><span class="mu">Subjects</span><b>3</b></div><div class="c st"><span class="mu">Total lessons</span><b>${t.n}</b></div><div class="c st"><span class="mu">Completed</span><b>${t.d}</b></div><div class="c st"><span class="mu">Remaining</span><b>${t.n-t.d}</b></div></div>
+<h3>Subjects</h3><div class="g g3">${SYL.map(s=>{const p=sp(s);return `<div class="c nt n${s.id}"><div style="font-size:28px">${s.icon}</div><b>${s.name}</b><div class="mu">${sd(s)} / ${s.lessons.length} lessons</div>${bar(p)}<div class="mu">${p}% completed</div><button class="b p" style="margin-top:8px" data-go="${s.id}">Open</button></div>`}).join('')}</div>
+<h3>Progress chart</h3><div class="c"><div class="rc">${SYL.map(s=>`<div>${sp(s)}%<i style="height:${Math.max(sp(s)*0.7,2)}px"></i>${s.icon}</div>`).join('')}</div></div>
+<h3>Recently updated</h3><div class="c">${recent()}</div>`}
+function recent(){const r=all().map(l=>({l,u:L(l.id).updated})).filter(x=>x.u).sort((a,b)=>b.u.localeCompare(a.u)).slice(0,5);
+return r.length?r.map(x=>`<div style="display:flex;justify-content:space-between;padding:4px 0"><span>${esc(x.l.n)}</span><span class="mu">${pr(x.l.id)}% · ${x.u}</span></div>`).join(''):'<span class="mu">No activity yet. Open a subject to start.</span>'}
+function subj(s){const a=lessons(s),p=sp(s),v=a.filter(pass);
+return `<button class="b" data-go="home">← Dashboard</button><h2>${s.icon} ${s.name}</h2><div class="c">${bar(p)}<b>${p}%</b> <span class="mu">· ${a.length} lessons · ${sd(s)} completed · ${a.length-sd(s)} remaining</span></div>
+<div class="f"><input id="q" placeholder="Search lessons…" value="${esc(q)}"><select id="fl"><option value="all">All</option><option value="done">Completed</option><option value="todo">Incomplete</option><option value="prog">In progress</option></select>
+<select id="af"><option value="any">Any activity</option>${ACT.map(a=>`<option value="${a[0]}">${a[2]} done</option>`).join('')}</select><button class="b" data-all="1">Expand all</button><button class="b" data-all="0">Collapse all</button></div>
+${v.length?v.map(row).join(''):'<div class="c mu">No lessons match.</div>'}`}
+function det(id){const l=all().find(x=>x.id===id),d=L(id),p=pr(id);
+return `<div class="ov" data-close="1"><div class="md"><b style="font-size:18px">${esc(l.n)}</b><div class="mu">${SYL.find(s=>id.startsWith(s.id+'-')).name}</div>${bar(p)}<b>${p}%</b>
+<div class="acts" style="margin:8px 0">${ACT.map(a=>`<span class="a ${d[a[0]]?'on':''}" data-tg="${id}|${a[0]}">${a[1]} ${a[2]}</span>`).join('')}</div>
+<div class="mu">Started: ${d.started||'—'} · Last updated: ${d.updated||'—'}</div>
+<h4>Subtopics</h4><ol>${l.sub.length?l.sub.map(x=>`<li>${esc(x)}</li>`).join(''):'<li style="list-style:none">Not added yet</li>'}</ol>
+<h4>Personal notes</h4><textarea id="nt" rows="4">${esc(d.notes)}</textarea><h4>Resource links</h4><textarea id="lk" rows="2" placeholder="One link per line">${esc(d.links)}</textarea>
+<div style="margin-top:10px;display:flex;gap:8px"><button class="b p" data-sv="${id}">Save notes</button><button class="b" data-close="1">Close</button></div></div></div>`}
+function sett(){return `<div class="ov" data-close="1"><div class="md"><b style="font-size:18px">Settings</b><div class="f"><button class="b" id="th">Toggle light/dark</button><button class="b" id="ex">Export JSON</button><button class="b" id="im">Import JSON</button><button class="b" id="rs" style="color:#dc2626">Reset progress</button></div><input type="file" id="fi" accept=".json" hidden><button class="b" data-close="1">Close</button></div></div>`}
+function render(){const s=SYL.find(x=>x.id===view);
+document.documentElement.dataset.theme=S.theme||'';
+document.getElementById('app').innerHTML=`<header><h1 data-go="home">🎓 A/L 2027 Tracker</h1><button class="b" data-set="1">⚙️ Settings</button></header>${s?subj(s):home()}${modal==='set'?sett():modal?det(modal):''}`;
+const f=document.getElementById('fl');if(f)f.value=flt;const a=document.getElementById('af');if(a)a.value=actF}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-go],[data-main],[data-tg],[data-det],[data-ex],[data-all],[data-set],[data-close],[data-sv],#th,#ex,#im,#rs');if(!t)return;const D=t.dataset;
+if(D.go){view=D.go;q='';flt='all';actF='any';modal=null;render()}
+else if(D.main)main(D.main);
+else if(D.tg){const[i,k]=D.tg.split('|');toggle(i,k)}
+else if(D.det){modal=D.det;render()}
+else if(D.ex){open[D.ex]=!open[D.ex];render()}
+else if(D.all!==undefined){const s=SYL.find(x=>x.id===view);lessons(s).forEach(l=>open[l.id]=D.all==='1');render()}
+else if(D.set){modal='set';render()}
+else if(D.close){if(t.classList.contains('ov')&&e.target!==t)return;modal=null;render()}
+else if(D.sv){const l=L(D.sv);l.notes=document.getElementById('nt').value;l.links=document.getElementById('lk').value;touch(D.sv);Store.save(S);modal=null;render()}
+else if(t.id==='th'){S.theme=S.theme==='light'?'dark':'light';Store.save(S);render()}
+else if(t.id==='ex'){const b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='al2027-progress.json';a.click()}
+else if(t.id==='im')document.getElementById('fi').click();
+else if(t.id==='rs'&&confirm('Reset ALL progress? This cannot be undone.')){S={lessons:{},theme:S.theme,classes:S.classes,notes:S.notes};Store.save(S);modal=null;render()}});
+document.addEventListener('input',e=>{if(e.target.id==='q'){q=e.target.value;const p=e.target.selectionStart;render();const n=document.getElementById('q');n.focus();n.setSelectionRange(p,p)}});
+document.addEventListener('change',e=>{if(e.target.id==='fl'){flt=e.target.value;render()}if(e.target.id==='af'){actF=e.target.value;render()}
+if(e.target.id==='fi'){const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d.lessons)throw 0;S=Object.assign({},d,{theme:d.theme||''});Store.save(S);modal=null;render()}catch(x){alert('Invalid progress file')}};r.readAsText(e.target.files[0])}});
+render();
+document.head.insertAdjacentHTML('beforeend','<style>:root{--bg:#2a1c26;--card:rgba(255,255,255,.07);--rb:rgba(255,255,255,.11);--pop:#2a1f2e;--tx:#f7f2ef;--mu:#bfb0ab;--bd:rgba(255,255,255,.17);--ac:#6cb7f5;--fill:linear-gradient(90deg,#6cb7f5,#b9a4ff)}:root[data-theme="light"]{--bg:#f6ece3;--card:rgba(255,255,255,.72);--rb:rgba(255,255,255,.92);--pop:#fff;--tx:#2a1d22;--mu:#7a6a66;--bd:rgba(60,30,20,.16);--ac:#2f86d6}body{background:radial-gradient(900px 620px at 96% 0%,rgba(255,205,95,.55),transparent 60%),radial-gradient(780px 600px at 0% 35%,rgba(190,90,60,.38),transparent 60%),linear-gradient(160deg,#4d322b 0%,#2b1d27 55%,#2a2434 100%);background-attachment:fixed}:root[data-theme="light"] body{background:linear-gradient(160deg,#fbe0bd,#f6ece3);background-attachment:fixed}.b.p,.a.on,.b.on{color:#10202e}.g4 .st{color:#fff;border:0}.g4 .st .mu{color:rgba(255,255,255,.82)}.g4 .st:nth-child(4n+1){background:linear-gradient(145deg,#8f7f5c,#59543f)}.g4 .st:nth-child(4n+2){background:linear-gradient(145deg,#7a86f5,#6a3fc0)}.g4 .st:nth-child(4n+3){background:linear-gradient(145deg,#f27aa6,#a855c8)}.g4 .st:nth-child(4n){background:linear-gradient(145deg,#f7bd55,#ee6c4d)}.nphy{background:linear-gradient(150deg,#f7bd55,#ee6c4d);color:#fff}.ncmb{background:linear-gradient(150deg,#7a86f5,#6a3fc0);color:#fff}.nchm{background:linear-gradient(150deg,#f27aa6,#a855c8);color:#fff}.nt .b{color:#fff}.sb{align-self:stretch}.sb .c{background:rgba(0,0,0,.62);border-radius:24px;padding:12px;min-height:72vh}.brand{font-weight:700;font-size:17px;padding:8px 10px 14px;white-space:nowrap;overflow:hidden}.sb.col .brand span{display:none}.ni.on{background:#6cb7f5;color:#10202e;box-shadow:none;font-weight:600}.vc.dim{opacity:.5;filter:blur(1.5px) grayscale(.4);transition:.2s}.vc.dim:hover{opacity:.9;filter:none}header{background:transparent;border:0;box-shadow:none;backdrop-filter:none}</style>');
+/* ===== Classes Management module (extends existing tracker, same S / Store) ===== */
+document.head.insertAdjacentHTML('beforeend','<style>#app{max-width:1180px}.lay{display:flex;gap:14px;align-items:flex-start}.sb{width:200px;position:sticky;top:12px;flex:none;transition:width .25s}.sb.col{width:58px}.sb .c{padding:8px}.ni{display:flex;gap:10px;align-items:center;padding:9px 10px;border-radius:12px;cursor:pointer;white-space:nowrap;overflow:hidden}.ni:hover{background:var(--rb)}.ni.on{background:var(--rb);box-shadow:inset 3px 0 var(--ac)}.sb.col .ni span{display:none}.mn{flex:1;min-width:0}.vg{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}.vc img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;background:var(--tr);display:block;margin-bottom:8px}.av{width:44px;height:44px;border-radius:50%;background:var(--fill);color:#1a1000;display:grid;place-items:center;font-weight:700;margin-bottom:6px}.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.b.on{background:var(--ac);color:#1a1000;border-color:var(--ac)}.cl{cursor:pointer}.wp{position:fixed;inset:0;background:#000;color:#fff;display:flex;flex-direction:column;z-index:20;padding-top:env(safe-area-inset-top,0px)}.wph{display:flex;gap:10px;align-items:center;padding:8px 12px;background:#10151f}.wph b{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.wpv{flex:1;min-height:0}.wpv iframe,#yt{width:100%;height:100%}@media(max-width:700px){.sb{width:58px}.sb .ni span{display:none}}</style>');
+S.classes=S.classes||{teachers:[],videos:[]};S.notes=S.notes||'';
+let page='dash',col=false,cs={s:null,t:null,y:null},lf={q:'',s:'',t:'',y:'',st:''},P=null,tick=null,cur=null,last=0,breaks=0;
+const C=()=>S.classes,uid=()=>Math.random().toString(36).slice(2,9),YR=['Previous Years','2025 / 2026','2027'];
+const sy=id=>SYL.find(s=>s.id===id),tOf=v=>C().teachers.find(t=>t.id===v.tid)||{name:'?',years:[]};
+const yn=v=>(tOf(v).years.find(y=>y.id===v.yid)||{name:'?'}).name;
+const vpc=v=>v.done?100:0,vst=v=>v.done?'Completed':'Not done';
+const avg=a=>a.length?Math.round(a.reduce((x,v)=>x+vpc(v),0)/a.length):0;
+const vOf=s=>C().videos.filter(v=>tOf(v).subj===s),tv=t=>C().videos.filter(v=>v.tid===t.id);
+const fmt=s=>{s=Math.round(s||0);const h=Math.floor(s/3600),m=Math.floor(s%3600/60);return(h?h+':'+String(m).padStart(2,'0'):m)+':'+String(s%60).padStart(2,'0')};
+const sv=()=>{Store.save(S)},sr=()=>{Store.save(S);render()};
+const ini=n=>n.split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase();
+const MN=k=>k==='0000'?'Date unknown':new Date(k+'-01T00:00:00').toLocaleString('en',{month:'long',year:'numeric'});
+function vcard(v,m){const t=tOf(v),u='https://www.youtube.com/watch?v='+v.vid;return `<div class="c vc ${v.done?'dim':''}"><a href="${u}" target="_blank" rel="noopener"><img loading="lazy" decoding="async" alt="" src="https://i.ytimg.com/vi/${v.vid}/mqdefault.jpg"></a><b>${esc(v.title)}</b><div class="mu">${esc(t.name)} · ${esc(yn(v))}</div><div class="mu">Uploaded: ${v.up||'unknown'}</div><div class="acts" style="margin-top:8px"><a class="b p" href="${u}" target="_blank" rel="noopener" style="text-decoration:none">▶ Watch on YouTube</a><span class="a ${v.done?'on':''}" data-c="tick:${v.id}">✔ Done</span><button class="b" data-c="sch:${v.id}" title="Schedule on calendar">📅</button>${m?`<button class="b" data-c="moV:${v.id}">Month</button><button class="b" data-c="editV:${v.id}">Edit</button><button class="b" data-c="delV:${v.id}">Delete</button>`:''}</div></div>`}
+function byMonth(A,m){const g={};A.forEach(v=>{const k=v.up?v.up.slice(0,7):'0000';(g[k]=g[k]||[]).push(v)});return Object.keys(g).sort((a,b)=>a==='0000'?1:b==='0000'?-1:a.localeCompare(b)).map(k=>`<h4 class="mh">${MN(k)} <span class="mu">· ${g[k].length} videos · ${g[k].filter(v=>v.done).length} done</span></h4><div class="vg">${g[k].sort((a,b)=>(a.up||'').localeCompare(b.up||'')).map(v=>vcard(v,m)).join('')}</div>`).join('')}
+const hideBtn=()=>`<button class="b ${lf.hide?'on':''}" data-c="hide">${lf.hide?'Ticked videos hidden':'Hide ticked videos'}</button>`;
+function lib(){const o=(a,k,l)=>`<select data-f="${k}"><option value="">${l}</option>${a.map(x=>`<option value="${esc(x[0])}" ${lf[k]===x[0]?'selected':''}>${esc(x[1])}</option>`).join('')}</select>`;
+const yrs=[...new Set(C().teachers.flatMap(t=>t.years.map(y=>y.name)))];
+const V=C().videos.filter(v=>(!lf.q||v.title.toLowerCase().includes(lf.q.toLowerCase()))&&(!lf.s||tOf(v).subj===lf.s)&&(!lf.t||v.tid===lf.t)&&(!lf.y||yn(v)===lf.y)&&(!lf.st||vst(v)===lf.st)&&(!lf.hide||!v.done));
+return `<div class="f">${hideBtn()}<input data-f="q" id="lq" placeholder="Search videos by title…" value="${esc(lf.q)}">${o(SYL.map(s=>[s.id,s.name]),'s','All subjects')}${o(C().teachers.map(t=>[t.id,t.name]),'t','All teachers')}${o(yrs.map(y=>[y,y]),'y','All years')}${o(['Not done','Completed'].map(x=>[x,x]),'st','Any status')}</div>${SYL.map(s=>{const A=V.filter(v=>tOf(v).subj===s.id);return A.length?`<h3>${s.icon} ${s.name} <span class="mu">· ${avg(vOf(s.id))}%</span></h3>${byMonth(A,false,s.id)}`:''}).join('')||'<div class="c mu">No videos yet. Add teachers and links in the Teachers tab.</div>'}`}
+function clsPage(){return `<h2>🎬 Classes</h2>`+lib()}
+function teachPage(){const T=cs.t&&C().teachers.find(t=>t.id===cs.t);
+if(!T)return `<h2>👨‍🏫 Teachers</h2>${SYL.map(s=>{const L=C().teachers.filter(t=>t.subj===s.id);return `<h3>${s.icon} ${s.name} <button class="b" data-c="addT:${s.id}">+ Add teacher</button></h3><div class="g g3">${L.map(t=>{const V=tv(t);return `<div class="c"><div class="cl" data-c="teach:${t.id}"><div class="av">${esc(ini(t.name))}</div><b>${esc(t.name)}</b><div class="mu">${V.length} videos</div>${bar(avg(V))}<div class="mu">${avg(V)}% completed</div></div><div class="acts" style="margin-top:8px"><button class="b" data-c="editT:${t.id}">Edit</button><button class="b" data-c="delT:${t.id}">Delete</button></div></div>`}).join('')||'<div class="c mu">No teachers yet.</div>'}</div>`}).join('')}`;
+if(!T.years.find(y=>y.id===cs.y))cs.y=T.years[0]&&T.years[0].id;const V=C().videos.filter(v=>v.tid===T.id&&v.yid===cs.y&&(!lf.hide||!v.done));
+return `<button class="b" data-c="home">← Teachers</button><h2>${esc(T.name)} <span class="mu">· ${sy(T.subj).name}</span></h2><div class="tabs">${T.years.map(y=>`<button class="b ${y.id===cs.y?'on':''}" data-c="yr:${y.id}">${esc(y.name)}</button>`).join('')}<button class="b" data-c="addY">+ Year</button>${cs.y?`<button class="b" data-c="editY">Rename</button><button class="b" data-c="delY">Delete year</button>`:''}</div><div class="f">${cs.y?`<button class="b p" data-c="addV">+ Add YouTube link</button><button class="b" data-c="addM">+ Add month</button>`:''}${hideBtn()}</div>${(V.length||(((T.years.find(y=>y.id===cs.y)||{}).months||[]).length))?byMonth(V,true):'<div class="c mu">No videos in this collection.</div>'}`}
+const SK='al2027_snaps',snaps=()=>{try{return JSON.parse(localStorage.getItem(SK))||[]}catch(e){return[]}};
+function snap(f){const a=snaps();if(!f&&a.length&&Date.now()-a[a.length-1].t<432e5)return;a.push({t:Date.now(),d:JSON.stringify(S)});try{localStorage.setItem(SK,JSON.stringify(a.slice(-5)))}catch(e){}}
+function bkPage(){return `<h2>💾 Backup</h2><div class="c"><p class="mu">Last file backup: ${S.lastBackup?new Date(S.lastBackup).toLocaleString():'never'}</p><div class="acts"><button class="b p" data-c="bkx">Download backup (JSON)</button><button class="b" data-c="bki">Restore from file</button><button class="b" data-c="bks">Save snapshot now</button></div><input type="file" id="fi2" accept=".json" hidden><p class="mu">Everything (syllabus progress, teachers, videos, watch progress, notes) is included.</p></div><h3>Auto snapshots (this browser, last 5)</h3>${snaps().map((s,i)=>`<div class="c" style="margin-bottom:8px;display:flex;gap:8px;align-items:center"><span style="flex:1">${new Date(s.t).toLocaleString()}</span><button class="b" data-c="bkr:${i}">Restore</button></div>`).reverse().join('')||'<div class="c mu">No snapshots yet.</div>'}`}
+
+function dates(){const s=new Set();Object.values(S.lessons).forEach(l=>l.updated&&s.add(l.updated));C().videos.forEach(v=>v.at&&s.add(v.at));return s}
+function streak(){const s=dates(),k=x=>x.toISOString().slice(0,10);let d=new Date(),n=0;if(!s.has(k(d)))d.setDate(d.getDate()-1);while(s.has(k(d))){n++;d.setDate(d.getDate()-1)}return n}
+function rings(){const R=[46,36,26],cl=['#8b5cf6','#38bdf8','#34d399'];return `<div class="c"><b>Progress by subject</b><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:8px"><svg viewBox="0 0 120 120" width="140" height="140">${SYL.map((s,i)=>{const r=R[i],c=2*Math.PI*r;return `<circle cx="60" cy="60" r="${r}" fill="none" stroke="var(--tr)" stroke-width="7"/><circle cx="60" cy="60" r="${r}" fill="none" stroke="${cl[i]}" stroke-width="7" stroke-linecap="round" stroke-dasharray="${c*sp(s)/100} ${c}" transform="rotate(-90 60 60)"/>`}).join('')}</svg><div>${SYL.map((s,i)=>`<div><span style="color:${cl[i]}">●</span> ${s.name} <b>${sp(s)}%</b></div>`).join('')}</div></div></div>`}
+function week(){const cnt={};Object.values(S.lessons).forEach(l=>{if(l.updated)cnt[l.updated]=(cnt[l.updated]||0)+1});C().videos.forEach(v=>{if(v.at)cnt[v.at]=(cnt[v.at]||0)+1});const a=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);a.push([d.toLocaleString('en',{weekday:'short'}),cnt[d.toISOString().slice(0,10)]||0])}const mx=Math.max(1,...a.map(x=>x[1]));return `<div class="c"><b>Last 7 days activity</b><div class="mu">lessons and videos updated</div><div class="rc" style="margin-top:10px;height:110px">${a.map(x=>`<div>${x[1]}<i style="height:${x[1]/mx*70+3}px"></i>${x[0]}</div>`).join('')}</div></div>`}
+function cal(){const n=new Date(),y=n.getFullYear(),m=n.getMonth(),f=(new Date(y,m,1).getDay()+6)%7,dn=new Date(y,m+1,0).getDate(),s=dates();let c='';for(let i=0;i<f;i++)c+='<i></i>';for(let d=1;d<=dn;d++){const k=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');c+=`<b class="${d===n.getDate()?'td':''} ${s.has(k)?'ac':''}">${d}</b>`}return `<div class="c"><b>${n.toLocaleString('en',{month:'long',year:'numeric'})}</b><div class="cal">${'MTWTFSS'.split('').map(x=>`<span>${x}</span>`).join('')}${c}</div><div class="mu">Highlighted = days you studied</div></div>`}
+function cont(){let a=all().map(l=>({l,p:pr(l.id),u:L(l.id).updated||''})).filter(x=>x.p>0&&x.p<100).sort((x,y)=>y.u.localeCompare(x.u)).slice(0,4);if(!a.length)a=all().filter(l=>pr(l.id)<100).slice(0,4).map(l=>({l,p:pr(l.id)}));
+return `<h3>Continue learning</h3><div class="g g4">${a.map(x=>{const s=SYL.find(s=>x.l.id.startsWith(s.id+'-'));return `<div class="c cl" data-go="${s.id}"><span class="mu">${s.name}</span><b style="display:block">${esc(x.l.n)}</b>${bar(x.p)}<span class="mu">${x.p}%</span></div>`}).join('')||'<div class="c mu">All lessons completed 🎉</div>'}</div>`}
+function dashPage(){const t=tot(),V=C().videos,vd=V.filter(v=>v.done).length;
+const T=[['Overall progress',t.p+'%','📈'],['Lessons completed',t.d+' / '+t.n,'✅'],['Videos done',vd+' / '+V.length,'🎬'],['Study streak',streak()+' days','🔥']];
+return `<h2>Welcome back! 👋</h2><div class="mu">Let's continue your A/L journey.</div><div class="g g4" style="margin:14px 0">${T.map(x=>`<div class="c st"><span class="mu">${x[2]} ${x[0]}</span><b>${x[1]}</b></div>`).join('')}</div>${cont()}<div class="g g3" style="margin-top:14px">${rings()}${week()}${cal()}</div><h3>Subjects</h3><div class="g g3">${SYL.map(s=>`<div class="c nt n${s.id}"><div style="font-size:26px">${s.icon}</div><b>${s.name}</b><div class="mu">${sd(s)} / ${s.lessons.length} lessons</div>${bar(sp(s))}<button class="b" data-go="${s.id}">Open</button></div>`).join('')}</div><h3>Classes progress</h3><div class="c" style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;text-align:left"><tr class="mu"><th>Subject</th><th>Teachers</th><th>Videos</th><th>Done</th><th>Progress</th></tr>${SYL.map(s=>{const A=vOf(s.id);return `<tr><td>${s.name}</td><td>${C().teachers.filter(t=>t.subj===s.id).length}</td><td>${A.length}</td><td>${A.filter(v=>v.done).length}</td><td>${avg(A)}%</td></tr>`}).join('')}</table></div><h3>Recently updated</h3><div class="c">${recent()}</div>`}
+const PG={dash:dashPage,cls:clsPage,teach:teachPage,bk:bkPage};
+function dashBlk(){const V=C().videos,d=V.filter(v=>v.done).length,p=V.filter(v=>!v.done&&v.pct>0).length;
+return `<h3>Classes progress</h3><div class="g g4">${[['Subjects',3],['Teachers',C().teachers.length],['Videos',V.length],['Completed',d],['In progress',p],['Not started',V.length-d-p],['Overall',avg(V)+'%']].map(x=>`<div class="c st"><span class="mu">${x[0]}</span><b>${x[1]}</b></div>`).join('')}</div><div class="c" style="margin-top:12px;overflow-x:auto"><table style="width:100%;border-collapse:collapse;text-align:left"><tr class="mu"><th>Subject</th><th>Videos</th><th>Completed</th><th>Progress</th></tr>${SYL.map(s=>{const A=vOf(s.id);return `<tr><td>${s.name}</td><td>${A.length}</td><td>${A.filter(v=>v.done).length}</td><td>${avg(A)}%</td></tr>`}).join('')}</table></div>`}
+const R0=render,sett0=sett;
+sett=function(){return sett0().replace('<input type="file"','<p class="mu"><b>YouTube upload date:</b> found automatically when possible (this can fail). Optional: paste a free YouTube Data API key for reliable dates and titles.</p><input id="ytk" placeholder="YouTube Data API key (optional)" value="'+esc(S.ytKey||'')+'" style="margin:6px 0"><input type="file"')};
+render=function(){const app=document.getElementById('app');
+if(page==='dash')view='home';R0();
+const hd=app.querySelector('header');if(PG[page]||page==='notes'){[...app.children].forEach(n=>{if(n!==hd&&!n.classList.contains('ov'))n.remove()});hd.insertAdjacentHTML('afterend',PG[page]?PG[page]():`<h2>📝 Notes</h2><textarea id="nt2" rows="14" placeholder="Write your study notes…">${esc(S.notes)}</textarea>`)}
+
+const nav=[['dash',ico('home'),'Home'],['syl',ico('syl'),'Syllabus'],['cls',ico('cls'),'Classes'],['teach',ico('teach'),'Teachers'],['cal',ico('cal'),'Calendar'],['bk',ico('bk'),'Backup'],['notes',ico('notes'),'Notes']];
+app.innerHTML=`<div class="shell"><div class="top"><div class="logo" data-go="home"><i>${ico('logo')}</i><b>AL<span>2027</span></b></div><nav class="tn">${nav.map(n=>`<div class="tl ${page===n[0]?'on':''}" data-nav="${n[0]}">${n[1]}<span>${n[2]}</span></div>`).join('')}</nav><div class="trr"><button class="ib" data-nav="theme" aria-label="Theme">${ico('moon')}</button><button class="ib" data-nav="set" aria-label="Settings">${ico('gear')}</button><div class="me">AL</div></div></div><div class="mn">${app.innerHTML}</div></div>`;
+const q=document.getElementById('lq');if(q&&lf.focus){q.focus();q.setSelectionRange(q.value.length,q.value.length);lf.focus=0}};
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)page=g.dataset.go==='home'?'dash':'syl'},true);
+async function getMeta(id){let title='',up='';const key=S.ytKey;
+if(key){try{const r=await fetch('https://www.googleapis.com/youtube/v3/videos?part=snippet&id='+id+'&key='+key),s=(await r.json()).items[0].snippet;title=s.title;up=s.publishedAt.slice(0,10)}catch(e){}}
+if(!title){try{const r=await fetch('https://www.youtube.com/oembed?format=json&url='+encodeURIComponent('https://www.youtube.com/watch?v='+id));title=(await r.json()).title}catch(e){}}
+if(!up){try{const t=await (await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://www.youtube.com/watch?v='+id))).text(),m=t.match(/itemprop="uploadDate" content="(\d{4}-\d{2}-\d{2})/)||t.match(/"publishDate":"(\d{4}-\d{2}-\d{2})/)||t.match(/"uploadDate":"(\d{4}-\d{2}-\d{2})/);if(m)up=m[1]}catch(e){}}
+return{title,up}}
+async function addVid(){const u=prompt('Paste YouTube URL');if(!u)return;const m=u.match(/(?:v=|youtu\.be\/|embed\/|shorts\/|live\/)([\w-]{11})/);if(!m)return alert('Invalid YouTube link');
+let{title,up}=await getMeta(m[1]);
+if(!title)title=prompt('Could not fetch the title automatically. Enter the title:')||'Untitled video';
+if(!up){const d=prompt('Could not find the upload date automatically. Enter the YouTube upload date (YYYY-MM-DD), or leave empty:','')||'';up=/^\d{4}-\d{2}-\d{2}$/.test(d.trim())?d.trim():''}
+C().videos.push({id:uid(),tid:cs.t,yid:cs.y,vid:m[1],title,up,done:0});sr()}
+document.addEventListener('click',e=>{const n=e.target.closest('[data-nav]'),c=e.target.closest('[data-c]');
+if(n){const k=n.dataset.nav;if(k==='col')col=!col;else if(k==='set')modal='set';else if(k==='theme'){S.theme=S.theme==='light'?'dark':'light';sv()}else{page=k;if(k==='dash'||k==='syl')view='home';modal=null}render();return}
+if(!c)return;const[a,x]=c.dataset.c.split(':'),T=()=>C().teachers.find(t=>t.id===(a==='editT'||a==='delT'?x:cs.t)),vv=()=>C().videos.find(v=>v.id===x);
+if(a==='subj'){cs.s=x;cs.t=null;render()}else if(a==='home'){cs={s:null,t:null,y:null};render()}
+else if(a==='teach'){cs.t=x;cs.s=(C().teachers.find(t=>t.id===x)||{}).subj;cs.y=null;render()}else if(a==='yr'){cs.y=x;render()}
+else if(a==='addT'){const n=prompt('Teacher name');if(n){C().teachers.push({id:uid(),subj:x||cs.s,name:n,years:YR.map(y=>({id:uid(),name:y}))});sr()}}
+else if(a==='editT'){const t=T(),n=prompt('Teacher name',t.name);if(n){t.name=n;sr()}}
+else if(a==='delT'){if(confirm('Delete this teacher and all their videos?')){C().videos=C().videos.filter(v=>v.tid!==x);C().teachers=C().teachers.filter(t=>t.id!==x);sr()}}
+else if(a==='addY'){const n=prompt('Year / collection name');if(n){const y={id:uid(),name:n};T().years.push(y);cs.y=y.id;sr()}}
+else if(a==='editY'){const y=T().years.find(y=>y.id===cs.y),n=prompt('Rename',y.name);if(n){y.name=n;sr()}}
+else if(a==='delY'){if(confirm('Delete this year and its videos?')){C().videos=C().videos.filter(v=>v.yid!==cs.y);T().years=T().years.filter(y=>y.id!==cs.y);cs.y=null;sr()}}
+else if(a==='addV')addVid();
+else if(a==='editV'){const v=vv(),n=prompt('Video title',v.title);if(n){v.title=n;const d=prompt('Upload date (YYYY-MM-DD)',v.up||'');if(d!==null&&/^\d{4}-\d{2}-\d{2}$/.test(d.trim()))v.up=d.trim();sr()}}
+else if(a==='delV'){if(confirm('Delete this video?')){C().videos=C().videos.filter(v=>v.id!==x);sr()}}
+else if(a==='tick'){const v=vv();v.done=v.done?0:1;v.at=v.done?new Date().toISOString().slice(0,10):'';sr()}
+else if(a==='hide'){lf.hide=!lf.hide;render()}
+else if(a==='bkx'){S.lastBackup=Date.now();sv();const b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'}),l=document.createElement('a');l.href=URL.createObjectURL(b);l.download='al2027-backup-'+new Date().toISOString().slice(0,10)+'.json';l.click();render()}
+else if(a==='bki')document.getElementById('fi2').click();
+else if(a==='bks'){snap(true);render()}
+else if(a==='bkr'){if(confirm('Restore this snapshot?')){S=JSON.parse(snaps()[x].d);sr()}}
+});
+document.addEventListener('input',e=>{if(e.target.id==='nt2'){S.notes=e.target.value;sv()}else if(e.target.dataset.f==='q'){lf.q=e.target.value;lf.focus=1;render()}});
+document.addEventListener('change',e=>{if(e.target.id==='ytk'){S.ytKey=e.target.value.trim();sv();return}if(e.target.id==='fi2'){const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d.lessons)throw 0;if(!confirm('Replace current data with this backup?'))return;S=Object.assign({classes:{teachers:[],videos:[]},notes:''},d);sr()}catch(x){alert('Invalid backup file')}};r.readAsText(e.target.files[0]);return}const f=e.target.dataset.f;if(f&&f!=='q'){lf[f]=e.target.value;render()}});
+document.head.insertAdjacentHTML('beforeend','<style>:root{--bg:#090b1c;--card:rgba(28,30,72,.55);--rb:rgba(255,255,255,.08);--pop:#14172e;--tx:#eef0ff;--mu:#9ba1c9;--bd:rgba(130,120,255,.22);--ac:#8b5cf6;--ok:#34d399;--tr:rgba(255,255,255,.1);--fill:linear-gradient(90deg,#7c5cff,#c084fc)}:root[data-theme="light"]{--bg:#eef0ff;--card:rgba(255,255,255,.82);--rb:rgba(255,255,255,.95);--pop:#fff;--tx:#1b1d3a;--mu:#666c93;--bd:rgba(90,70,200,.2);--ac:#6d4aff;--ok:#059669;--tr:rgba(60,50,150,.1)}body{background:radial-gradient(700px 500px at 18% 0%,rgba(110,70,255,.32),transparent 60%),radial-gradient(700px 600px at 100% 45%,rgba(40,90,255,.22),transparent 60%),radial-gradient(600px 500px at 40% 100%,rgba(190,60,255,.16),transparent 60%),#090b1c;background-attachment:fixed}:root[data-theme="light"] body{background:linear-gradient(160deg,#e6e8ff,#f6f0ff);background-attachment:fixed}.w,#app{max-width:none;padding:0}.lay{gap:0;align-items:flex-start;min-height:100vh}.sb{position:sticky;top:0;height:100vh;width:230px;align-self:flex-start}.sb.col{width:62px}.sb .c{height:100vh;border-radius:0;border:0;border-right:1px solid var(--bd);background:rgba(8,10,30,.8);display:flex;flex-direction:column;min-height:0;overflow:auto;box-shadow:none}:root[data-theme="light"] .sb .c{background:rgba(255,255,255,.88)}.mn{padding:16px 24px;flex:1;min-width:0}.ni.on{background:linear-gradient(90deg,#6d4aff,#8b5cf6);color:#fff;box-shadow:0 0 18px rgba(139,92,246,.45)}.c{box-shadow:0 0 0 1px rgba(130,120,255,.08),0 12px 40px rgba(50,30,180,.2)}.g4 .st{background:linear-gradient(145deg,rgba(70,55,170,.55),rgba(25,28,70,.65));border:1px solid var(--bd);color:var(--tx)}.g4 .st .mu{color:var(--mu)}.g4 .st:nth-child(4n+1){border-color:#8b5cf6}.g4 .st:nth-child(4n+2){border-color:#38bdf8}.g4 .st:nth-child(4n+3){border-color:#34d399}.g4 .st:nth-child(4n){border-color:#fbbf24}.nphy{background:linear-gradient(150deg,#7c5cff,#b18cff)}.ncmb{background:linear-gradient(150deg,#2f6bff,#4cc3ff)}.nchm{background:linear-gradient(150deg,#0ea5a0,#34d399)}.b.p,.a.on,.b.on{background:linear-gradient(90deg,#6d4aff,#8b5cf6);color:#fff;border-color:transparent}.mh{margin:18px 0 8px;font-size:15px}.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;margin:8px 0}.cal b,.cal span{padding:4px 0;border-radius:8px;font-size:12px;font-weight:400}.cal span{color:var(--mu)}.cal .ac{background:rgba(139,92,246,.4)}.cal .td{outline:2px solid #8b5cf6}@media(max-width:700px){.sb{width:58px}.sb .ni span,.sb .brand span{display:none}.mn{padding:12px}}</style>');
+document.head.insertAdjacentHTML('beforeend',`<style>:root{--bg:#121545;--card:#242a6c;--rb:#2f3690;--pop:#1a1f58;--tx:#f1f3ff;--mu:#939ad8;--bd:rgba(255,255,255,.09);--ac:#ff9a4d;--ok:#34d399;--tr:rgba(255,255,255,.1);--fill:linear-gradient(90deg,#ff7a59,#ffc58f)}
+:root[data-theme="light"]{--bg:#e9ebff;--card:#fff;--rb:#eef0ff;--pop:#fff;--tx:#1b1f4d;--mu:#6a70a8;--bd:rgba(60,70,170,.12);--ac:#3f6bff;--ok:#059669;--tr:rgba(60,70,170,.1)}
+body{background:radial-gradient(900px 600px at 85% -10%,rgba(90,110,255,.38),transparent 60%),radial-gradient(700px 500px at 0% 100%,rgba(60,90,230,.25),transparent 60%),linear-gradient(160deg,#181c52,#111441 60%,#0d1036);background-attachment:fixed}
+:root[data-theme="light"] body{background:radial-gradient(800px 500px at 90% -10%,rgba(120,140,255,.35),transparent 60%),linear-gradient(160deg,#f0f1ff,#dfe3ff);background-attachment:fixed}
+.w,#app{max-width:none;padding:0 0 48px}.mn{padding:0}.mn>header{display:none}
+.c,.lr,header{background:linear-gradient(160deg,#241c55,#1d1647);border:1px solid rgba(255,255,255,.07);border-radius:22px;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 14px 30px rgba(6,8,45,.38)}
+:root[data-theme="light"] .c,:root[data-theme="light"] .lr{background:linear-gradient(160deg,#fff,#f2f3ff);border-color:rgba(60,70,170,.1);box-shadow:0 10px 26px rgba(70,80,180,.14)}
+.lr{border-radius:18px}.c,.b,.rw,.pill{transition:transform .25s,box-shadow .25s,background .2s,border-color .25s}
+.cl:hover{transform:translateY(-4px);border-color:var(--ac)}
+.b{background:var(--rb);border:1px solid var(--bd);border-radius:12px}.b:hover{transform:translateY(-1px)}
+.b.p,.a.on,.b.on{background:linear-gradient(135deg,#ff9a4d,#ffc58f);color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(255,154,77,.4)}
+.b.wide{width:100%;margin-top:14px;padding:9px}.b.lt{background:rgba(255,255,255,.22);color:#fff;border-color:rgba(255,255,255,.35);font-weight:600;padding:8px 22px;margin-top:16px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px rgba(255,154,77,.25)}
+.ic{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.g4 .st:nth-child(4n+1){--k:#ff9a4d}.g4 .st:nth-child(4n+2){--k:#22d3ee}.g4 .st:nth-child(4n+3){--k:#a78bfa}.g4 .st:nth-child(4n){--k:#f472b6}
+.g4 .st:nth-child(n){background:linear-gradient(160deg,color-mix(in srgb,var(--k) 30%,#1d1647),#1d1647);border:1px solid color-mix(in srgb,var(--k) 55%,transparent);color:var(--tx)}
+:root[data-theme="light"] .g4 .st:nth-child(n){background:linear-gradient(160deg,#fff,color-mix(in srgb,var(--k) 20%,#fff))}
+.g4 .st:nth-child(n) .mu{color:var(--mu)}
+.c.nphy{background:linear-gradient(150deg,#6b4cf0,#3b2fb8);color:#fff}.c.ncmb{background:linear-gradient(150deg,#2ea0ff,#2a5bd7);color:#fff}.c.nchm{background:linear-gradient(150deg,#c45cf2,#6a35c9);color:#fff}
+.bigic .ic{width:34px;height:34px;margin-bottom:6px}
+.cal .ac{background:rgba(255,154,77,.45)}.cal .td{outline:2px solid #ffc58f}
+.shell{max-width:1340px;margin:0 auto;padding:14px}
+.top{position:sticky;top:10px;z-index:8;display:flex;align-items:center;gap:18px;padding:10px 18px;margin-bottom:18px;border-radius:22px;background:var(--pop);border:1px solid var(--bd);box-shadow:0 14px 34px rgba(5,7,40,.4)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;cursor:pointer}.logo span{color:#ff9a4d}
+.logo i{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#ff7a59,#8e6bff);box-shadow:0 6px 18px rgba(79,100,255,.5)}
+.tn{display:flex;gap:2px;flex:1;overflow-x:auto;scrollbar-width:none}
+.tl{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:14px;cursor:pointer;color:var(--mu);font-size:12px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;white-space:nowrap;transition:color .2s,background .2s}
+.tl:hover{color:var(--tx);background:var(--rb)}.tl.on{color:#fff;background:rgba(255,154,77,.18);box-shadow:inset 0 -2px #ff9a4d}
+:root[data-theme="light"] .tl.on{color:#2a4bd0}
+.trr{display:flex;align-items:center;gap:10px}
+.ib{width:40px;height:40px;border-radius:50%;border:1px solid var(--bd);background:var(--rb);color:var(--tx);display:grid;place-items:center;cursor:pointer;transition:transform .25s}.ib:hover{transform:rotate(25deg) scale(1.08)}
+.me{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:linear-gradient(135deg,#ff7a59,#a06bff);border:2px solid rgba(255,255,255,.3)}
+.dg{display:grid;grid-template-columns:262px minmax(0,1fr) 262px;gap:18px;align-items:start}.col{display:flex;flex-direction:column;gap:18px;min-width:0}
+.gr{flex:1;min-width:0}.sh{font-size:20px;margin:8px 0 -4px}.ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.pfh{display:flex;align-items:center;gap:10px;margin-bottom:12px}.av2{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#ff7a59,#8e6bff)}
+.sm{display:flex;justify-content:space-between;font-size:12px;color:var(--mu);margin-top:8px}.sm b{color:var(--tx)}
+.chips{display:flex;gap:8px;margin-top:12px}.chip{height:38px;min-width:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:4px;color:#fff;cursor:pointer;padding:0 8px;font-size:12px;font-weight:700}.chip.pl{background:var(--rb);color:var(--mu);margin-left:auto;cursor:default}
+.dt{width:9px;height:9px;border-radius:50%;background:#f87171;flex:none}.dt.y{background:#fbbf24}.dt.g{background:#34d399}
+.rw{display:flex;align-items:center;gap:10px;padding:9px;border-radius:14px;cursor:pointer}.rw:hover,.rw.hl{background:var(--rb)}.rw .mu{font-size:12px}
+.ri{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;flex:none}
+.s-phy{background:linear-gradient(135deg,#6b4cf0,#3b82f6)}.s-cmb{background:linear-gradient(135deg,#22a6ff,#2a5bd7)}.s-chm{background:linear-gradient(135deg,#c45cf2,#6a35c9)}
+.dly{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.ring{width:110px;height:110px}.rt{fill:none;stroke:var(--tr);stroke-width:8}.rf{fill:none;stroke:#ff9a4d;stroke-width:8;stroke-linecap:round}.rtx{fill:var(--tx);font:700 18px Inter,sans-serif}
+.rb{width:38px;height:38px;border-radius:50%;border:0;color:#fff;cursor:pointer;display:grid;place-items:center;background:linear-gradient(135deg,#ff9a4d,#ffc58f);box-shadow:0 6px 16px rgba(255,154,77,.5);transition:transform .2s}.rb:hover{transform:scale(1.12)}
+.hero{position:relative;overflow:hidden;border-radius:24px;padding:26px;min-height:230px;color:#fff;background:linear-gradient(120deg,#1b7be6,#3a5be0 48%,#6a3fd0);box-shadow:0 16px 36px rgba(40,60,200,.4)}
+.hero::before{content:"";position:absolute;right:-70px;top:-70px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.3),transparent 65%)}
+.hero>*{position:relative}.hero small{opacity:.85}.hero h2{margin:6px 0 16px;font-size:24px;max-width:70%;line-height:1.25}
+.sq{position:absolute!important;width:22px;height:22px;border-radius:5px;opacity:.85;transform:rotate(20deg);animation:flt 6s ease-in-out infinite alternate}.sq.s2{animation-duration:8s;width:16px;height:16px}.sq.s3{animation-duration:7s}
+@keyframes flt{to{transform:translateY(-14px) rotate(55deg)}}
+.dcs{display:flex;gap:8px;align-items:center}.dc{width:44px;padding:6px 0;text-align:center;border-radius:10px;background:rgba(255,255,255,.18);font-weight:700;position:relative}.dc small{display:block;font-size:10px;opacity:.8}
+.dc.st::after{content:"";position:absolute;bottom:3px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:#8be28f}.dc.on{transform:scale(1.18);background:linear-gradient(#7cbcff,#3a7bff);box-shadow:0 8px 20px rgba(20,50,200,.5)}
+.pills{display:flex;gap:10px;flex-wrap:wrap;padding:14px}.pill{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;border-radius:12px;border:1px solid var(--bd);background:var(--rb);color:var(--tx);font-weight:600;cursor:pointer}.pill:hover{transform:translateY(-2px);border-color:var(--ac)}
+.wc{padding:0;overflow:hidden}.wh{height:112px;display:grid;place-items:center;color:rgba(255,255,255,.92)}.wh .ic{width:54px;height:54px;stroke-width:1.4}.wb{padding:14px}.wb b{display:block;line-height:1.3}
+.mt{display:flex;justify-content:space-between;font-size:12px;color:var(--mu)}
+.sc{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-radius:18px}.sc b{display:block;font-size:24px}.sp{width:88px;height:30px;flex:none}
+.bc{display:flex;align-items:flex-end;justify-content:center;gap:16px;height:130px}.bc div{text-align:center}.bc i{display:block;width:30px;border-radius:8px 8px 3px 3px;margin:0 auto 4px;transition:height .5s}.bc small{color:var(--mu)}
+.lc2{width:100%;height:auto}.gl{stroke:var(--bd)}.vl{stroke:#ff9a4d;stroke-width:1.5}.tx{fill:var(--mu);font-size:11px}.tg{font-size:12px;color:#ffc58f;font-weight:600}
+@keyframes iconSpin{from{transform:rotate(-120deg) scale(.4)}}
+@keyframes pgIn{from{opacity:0;transform:translateY(22px) scale(.96);filter:blur(10px)}}
+.top.sw .tl.on .ic{animation:iconSpin .6s}
+.mn.pg>*:not(.ov){animation:pgIn .6s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0)*70ms)}
+.mn.pg .g>*,.mn.pg .dg .col>*{animation:pgIn .6s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(.12s + var(--j,0)*55ms)}
+@media(max-width:1100px){.dg{grid-template-columns:1fr 1fr}.cc{grid-column:1/-1;order:-1}}
+@media(max-width:700px){.dg{grid-template-columns:1fr}.tl span,.logo b{display:none}.tl{padding:10px}.top{padding:8px 10px;gap:8px}.hero h2{max-width:100%;font-size:20px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
+</style>`);
+const IC={home:'<path d="M3 11l9-7 9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/>',syl:'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>',cls:'<rect x="3" y="8" width="18" height="12" rx="2"/><path d="M3 8l3-4h4L7 8M11 8l3-4h4l-3 4"/><path d="M10.5 12.5v3l3-1.5z"/>',teach:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-4 3-6 6.5-6s6 2 6.5 6"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14c2.5.3 4 2 4.5 5"/>',bk:'<path d="M7 18a4.5 4.5 0 0 1-.6-8.9A6 6 0 0 1 18 10a4 4 0 0 1-.5 8z"/><path d="M12 17v-6M9.5 13.5L12 11l2.5 2.5"/>',notes:'<path d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/><path d="M17.5 3.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/>',moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',logo:'<path d="M12 2l8.5 5v10L12 22l-8.5-5V7z"/><path d="M12 8l4 2.3v4.6L12 17.2 8 14.9v-4.6z"/>',phy:'<circle cx="12" cy="12" r="1.6"/><ellipse cx="12" cy="12" rx="9" ry="3.8"/><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(120 12 12)"/>',cmb:'<path d="M18 5H7l6 7-6 7h11"/>',chm:'<path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/><path d="M7.5 15h9"/>',bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',go:'<path d="M9 6l6 6-6 6"/>'};
+const ico=k=>`<svg class="ic" viewBox="0 0 24 24">${IC[k]}</svg>`,DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function wk(){const cnt={};Object.values(S.lessons).forEach(l=>{if(l.updated)cnt[l.updated]=(cnt[l.updated]||0)+1});C().videos.forEach(v=>{if(v.at)cnt[v.at]=(cnt[v.at]||0)+1});const a=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);a.push({d,n:cnt[d.toISOString().slice(0,10)]||0})}return a}
+const spark=(a,c)=>{const mx=Math.max(1,...a),p=a.map((v,i)=>(i*100/(a.length-1)).toFixed(1)+','+(26-v/mx*22).toFixed(1)).join(' ');return `<svg viewBox="0 0 100 30" preserveAspectRatio="none" class="sp"><polyline points="${p}" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`};
+function lchart(a){const W=600,H=190,b=H-30,mx=Math.max(3,...a.map(x=>x.n)),P=a.map((x,i)=>[40+i*(W-80)/6,b-x.n/mx*(H-70)-6]);let d='M'+P[0].join(',');for(let i=1;i<7;i++){const m=(P[i-1][0]+P[i][0])/2;d+=` C${m},${P[i-1][1]} ${m},${P[i][1]} ${P[i][0]},${P[i][1]}`}const e=P[6],gl=[0,1,2,3].map(i=>{const y=b-i*(H-70)/3-6;return `<line x1="30" x2="${W-20}" y1="${y}" y2="${y}" class="gl"/>`}).join('');
+return `<div class="ch"><b>Activity</b><span class="tg">Daily</span></div><svg viewBox="0 0 ${W} ${H}" class="lc2"><defs><linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9a4d" stop-opacity=".45"/><stop offset="1" stop-color="#ff9a4d" stop-opacity="0"/></linearGradient></defs>${gl}<path d="${d} L${e[0]},${b} L${P[0][0]},${b}Z" fill="url(#lg1)"/><path d="${d}" fill="none" stroke="#ff9a4d" stroke-width="3" stroke-linecap="round"/><line x1="${e[0]}" x2="${e[0]}" y1="10" y2="${b}" class="vl"/>${P.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="${i===6?6:4}" fill="${i===6?'#fff':'#ff9a4d'}" stroke="#ff9a4d" stroke-width="2"/><text x="${p[0]}" y="${H-8}" text-anchor="middle" class="tx">${DN[a[i].d.getDay()]}</text>`).join('')}<text x="${e[0]-10}" y="${e[1]-14}" text-anchor="end" class="tx">${a[6].n} today</text></svg>`}
+function dashNew(){const t=tot(),V=C().videos,vd=V.filter(v=>v.done).length,W=wk(),ns=W.map(x=>x.n),vp=V.length?Math.round(vd/V.length*100):0,
+A=all().map(l=>({l,p:pr(l.id),u:L(l.id).updated||'',s:SYL.find(s=>l.id.startsWith(s.id+'-'))})),
+act=A.filter(x=>x.u).sort((a,b)=>b.u.localeCompare(a.u)).slice(0,4),cn=A.filter(x=>x.p>0&&x.p<100).sort((a,b)=>b.u.localeCompare(a.u)),
+nx=cn[0]||A.find(x=>x.p<100),cl3=cn.concat(A.filter(x=>x.p===0)).slice(0,3),R=34*2*Math.PI,st=streak();
+const dot=p=>p===100?'g':p>0?'y':'';
+return `<div class="dg"><div class="col lc">
+<div class="c pf"><div class="pfh"><div class="av2">${ico('logo')}</div><div class="gr"><b>A/L 2027</b><div class="mu">Study profile</div></div><em class="dt g"></em></div>
+<div class="sm"><span>Overall progress</span><b>${t.p}%</b></div>${bar(t.p)}<div class="sm"><span>Videos done</span><b>${vd}/${V.length}</b></div>${bar(vp)}
+<div class="chips">${SYL.map(s=>`<span class="chip s-${s.id}" data-go="${s.id}" title="${s.name}">${ico(s.id)}</span>`).join('')}<span class="chip pl">${ico('bolt')}${st}d</span></div>
+<button class="b p wide" data-nav="syl">Open syllabus</button></div>
+<div class="c"><div class="ch"><b>Subjects</b><span class="mu">${t.d}/${t.n} lessons</span></div>${SYL.map(s=>{const p=sp(s);return `<div class="rw" data-go="${s.id}"><i class="ri s-${s.id}">${ico(s.id)}</i><span class="gr">${s.name}</span><em class="dt ${dot(p)}"></em><b>${p}%</b></div>`}).join('')}</div>
+<div class="c dly"><svg viewBox="0 0 100 100" class="ring"><circle cx="50" cy="50" r="34" class="rt"/><circle cx="50" cy="50" r="34" class="rf" stroke-dasharray="${R*t.p/100} ${R}" transform="rotate(-90 50 50)"/><text x="50" y="56" text-anchor="middle" class="rtx">${t.p}%</text></svg><b>${st}-day streak</b><button class="rb" data-nav="syl" aria-label="Open syllabus">${ico('go')}</button></div></div>
+<div class="col cc"><div class="hero">${HART}
+<div class="hk">A / L &nbsp;2 0 2 7</div><small>Don't miss today's study</small><h2>${nx?'Continue: '+esc(nx.l.n):'All lessons completed!'}</h2><div class="dcs">${W.slice(2).map((x,i)=>`<span class="dc ${i===4?'on':''} ${x.n?'st':''}"><small>${DN[x.d.getDay()]}</small>${x.d.getDate()}</span>`).join('')}</div>${nx?`<button class="b lt" data-go="${nx.s.id}">Continue</button>`:''}</div>
+<div class="c pills">${SYL.map(s=>`<button class="pill" data-go="${s.id}">${ico(s.id)}${s.name}</button>`).join('')}</div>
+<h3 class="sh">Continue learning</h3><div class="g g3">${cl3.map(x=>{const dn=ACT.filter(a=>L(x.l.id)[a[0]]).length;return `<div class="c wc cl" data-go="${x.s.id}"><div class="wh s-${x.s.id}">${ico(x.s.id)}</div><div class="wb"><b>${esc(x.l.n)}</b><div class="mu">${x.s.name}</div>${bar(x.p)}<div class="mt"><span>${x.p}%</span><span>${dn}/4 tasks</span><span>${x.u||'new'}</span></div></div></div>`}).join('')||'<div class="c mu">All lessons completed!</div>'}</div>
+<h3 class="sh">Statistic</h3><div class="c">${lchart(W)}</div></div>
+<div class="col rcol"><div class="c sc"><div><span class="mu">Overall progress</span><b>${t.p}%</b></div>${spark(ns,'#ff9a4d')}</div>
+<div class="c sc"><div><span class="mu">Lessons done</span><b>${t.d}</b></div>${spark(ns,'#f472b6')}</div>
+<div class="c sc"><div><span class="mu">Videos done</span><b>${vd}</b></div>${spark(ns,'#fbbf24')}</div>
+<div class="c"><div class="ch"><b>Recent activity</b></div>${act.map((x,i)=>`<div class="rw ${i?'':'hl'}" data-det="${x.l.id}"><i class="ri s-${x.s.id}">${ico(x.s.id)}</i><span class="gr"><b>${esc(x.l.n)}</b><div class="mu">${x.u}</div></span><b>${x.p}%</b></div>`).join('')||'<div class="mu">No activity yet. Open a subject to start.</div>'}</div>
+<div class="c dly"><div class="bc">${SYL.map(s=>`<div><i class="s-${s.id}" style="height:${Math.max(sp(s)*.9,6)}px"></i><small>${sp(s)}%</small></div>`).join('')}</div><b>Subject progress</b><button class="rb" data-nav="syl" aria-label="Open syllabus">${ico('go')}</button></div></div></div>`}
+function sylHome(){const t=tot();return `<h2>Syllabus Tracker</h2><div class="g g4" style="margin:14px 0"><div class="c st"><span class="mu">Overall</span><b>${t.p}%</b></div><div class="c st"><span class="mu">Total lessons</span><b>${t.n}</b></div><div class="c st"><span class="mu">Completed</span><b>${t.d}</b></div><div class="c st"><span class="mu">Remaining</span><b>${t.n-t.d}</b></div></div><div class="g g3">${SYL.map(s=>`<div class="c nt n${s.id}"><div class="bigic">${ico(s.id)}</div><b>${s.name}</b><div class="mu">${sd(s)} / ${s.lessons.length} lessons</div>${bar(sp(s))}<button class="b" data-go="${s.id}">Open</button></div>`).join('')}</div>`}
+PG.dash=dashNew;PG.syl=()=>{const s=SYL.find(x=>x.id===view);return s?subj(s):sylHome()};
+let _pp=null;const R1=render;render=function(){R1();const m=document.querySelector('.mn');if(m&&_pp!==page){m.classList.remove('pg');void m.offsetWidth;m.classList.add('pg');[...m.children].forEach((e,i)=>e.style.setProperty('--i',i));m.querySelectorAll('.g>*,.dg .col>*').forEach((e,i)=>e.style.setProperty('--j',Math.min(i,14)));const tp=document.querySelector('.top');if(tp)tp.classList.add('sw')}_pp=page};
+const CHM=`Atomic Structure – පරමාණුක ව්‍යුහය
+පරමාණුව හැඳින්වීම
+උප පරමාණුක අංශු
+කැතෝඩ කිරණ හා ධන කිරණ
+Thomson හා Rutherford පරමාණු ආකෘති
+පරමාණුක ක්‍රමාංකය හා ස්කන්ධ ක්‍රමාංකය
+සමස්ථානික හා නියුක්ලයිඩ
+විද්‍යුත් චුම්භක විකිරණ
+තරංග-අංශු ද්විත්ව ස්වභාවය
+විද්‍යුත් චුම්භක වර්ණාවලිය
+Bohr පරමාණු ආකෘතිය
+පරමාණුක වර්ණාවලිය
+ක්වොන්ටම් සංඛ්‍යා
+පරමාණුක කාක්ෂික (s, p, d, f)
+ඉලෙක්ට්‍රෝන වින්‍යාසය
+Aufbau මූලධර්මය
+Pauli මූලධර්මය
+Hund නියමය
+ආවර්තිතා වගුව
+ආවර්තිතා ගුණ
+
+Structure and Bonding – ව්‍යුහය හා බන්ධන
+රසායනික බන්ධන හැඳින්වීම
+අයනික බන්ධන
+සහසංයුජ බන්ධන
+ලෝහ බන්ධන
+Lewis ව්‍යුහ
+ඉලෙක්ට්‍රෝන යුගල විකර්ෂණය (VSEPR)
+අණුවල හැඩය
+ධ්‍රැවීය හා නිර්ධ්‍රැවීය අණු
+අණු අතර බල
+හයිඩ්‍රජන් බන්ධන
+සහසංයුජ ජාල ව්‍යුහ
+Resonance ව්‍යුහ
+
+Chemical Calculations – රසායනික ගණනය කිරීම්
+පරමාණුක සාපේක්ෂ ස්කන්ධය
+අණුක සාපේක්ෂ ස්කන්ධය
+මවුල සංකල්පය
+Avogadro නියතය
+මවුල හා අංශු අතර සම්බන්ධතා
+රසායනික සූත්‍ර
+අනුභවික සූත්‍රය
+අණුක සූත්‍රය
+රසායනික සමීකරණ තුලනය
+ස්ටොයිකියෝමිතිය
+සීමාකාරී ප්‍රතික්‍රියක
+ප්‍රතිශත සංයුතිය
+ද්‍රාවණ සකස් කිරීම
+සාන්ද්‍රණය
+මවුල සාන්ද්‍රණය
+
+Gaseous State of Matter – වායුමය අවස්ථාව
+වායුවල ගුණ
+වායු නියම
+Boyle නියමය
+Charles නියමය
+Avogadro නියමය
+පරමාදර්ශී වායු සමීකරණය
+වායු මිශ්‍රණ
+අර්ධ පීඩන
+Dalton නියමය
+චාලක අණුක වාදය
+සැබෑ වායු
+පරමාදර්ශී නොවන හැසිරීම
+
+Energetics – ශක්ති විද්‍යාව
+රසායනික ප්‍රතික්‍රියාවල ශක්ති වෙනස්වීම්
+තාපදායක හා තාප අවශෝෂක ප්‍රතික්‍රියා
+එන්තැල්පිය
+එන්තැල්පි වෙනස්වීම්
+සම්මත එන්තැල්පි වෙනස්වීම්
+ගොඩනැගීමේ එන්තැල්පිය
+දහන එන්තැල්පිය
+බන්ධන එන්තැල්පිය
+Hess නියමය
+කැලරිමිතිය
+ශක්ති චක්‍ර
+
+Chemistry of s, p and d Block Elements – s, p හා d ගොනුවල මූලද්‍රව්‍ය
+ආවර්තිතා වගුවේ s ගොනුව
+1 හා 2 කාණ්ඩ
+s ගොනුවේ මූලද්‍රව්‍යවල රසායනික ගුණ
+p ගොනුවේ මූලද්‍රව්‍ය
+13, 14, 15, 16, 17 හා 18 කාණ්ඩ
+p ගොනුවේ මූලද්‍රව්‍යවල සංයෝග
+හයිඩ්‍රජන් හා එහි සංයෝග
+d ගොනුවේ මූලද්‍රව්‍ය
+සංක්‍රාන්ති මූලද්‍රව්‍ය
+සංකීර්ණ අයන
+සංකීර්ණ සංයෝගවල නාමකරණය
+ඔක්සිකරණ අංක
+මූලද්‍රව්‍යවල රසායනික ප්‍රතික්‍රියා
+අදාළ ප්‍රායෝගික පරීක්ෂණ
+
+Basic Concepts of Organic Chemistry – කාබනික රසායනයේ මූලික සංකල්ප
+කාබනික රසායනය හැඳින්වීම
+කාබන්වල බන්ධන හැකියාව
+කාබනික සංයෝග වර්ගීකරණය
+ක්‍රියාකාරී කාණ්ඩ
+සමාවයවිකතාව (Isomerism)
+ව්‍යුහාත්මක සමාවයවිකතාව
+IUPAC නාමකරණය
+කාබනික ප්‍රතික්‍රියා වර්ග
+ඉලෙක්ට්‍රෝන විස්ථාපන බලපෑම්
+
+Hydrocarbons and Halohydrocarbons – හයිඩ්‍රොකාබන හා හැලජනීකෘත හයිඩ්‍රොකාබන
+ඇල්කේන
+ඇල්කීන
+ඇල්කයින
+ඇරෝමැටික හයිඩ්‍රොකාබන
+බෙන්සීන්
+හයිඩ්‍රොකාබනවල භෞතික ගුණ
+හයිඩ්‍රොකාබනවල රසායනික ප්‍රතික්‍රියා
+හැලෝඇල්කේන
+හැලෝඇරීන
+නියුක්ලියෝෆිලික ආදේශන ප්‍රතික්‍රියා
+ඉවත් කිරීමේ ප්‍රතික්‍රියා
+හැලජනීකෘත සංයෝගවල භාවිත
+
+Oxygen Containing Organic Compounds – ඔක්සිජන් අඩංගු කාබනික සංයෝග
+ඇල්කොහොල්
+ෆීනෝල්
+ඊතර්
+ඇල්ඩිහයිඩ
+කීටෝන
+කාබොක්සිලික් අම්ල
+එස්ටර
+සංයෝගවල නාමකරණය
+භෞතික ගුණ
+රසායනික ප්‍රතික්‍රියා
+ඔක්සිකරණ හා ඔක්සිහරණ ප්‍රතික්‍රියා
+කාබනික සංයෝග හඳුනාගැනීම
+
+Nitrogen Containing Organic Compounds – නයිට්‍රජන් අඩංගු කාබනික සංයෝග
+ඇමීන
+ඇමයිඩ
+නයිට්‍රයිල්
+නයිට්‍රෝ සංයෝග
+නයිට්‍රජන් අඩංගු සංයෝගවල නාමකරණය
+භෞතික හා රසායනික ගුණ
+අදාළ කාබනික ප්‍රතික්‍රියා
+
+Chemical Kinetics – රසායනික චාලක විද්‍යාව
+ප්‍රතික්‍රියා වේගය
+ප්‍රතික්‍රියා වේගය මැනීම
+ප්‍රතික්‍රියා වේගයට බලපාන සාධක
+සාන්ද්‍රණයේ බලපෑම
+උෂ්ණත්වයේ බලපෑම
+පීඩනයේ බලපෑම
+උත්ප්‍රේරක
+ගැටුම් වාදය
+සක්‍රියන ශක්තිය
+ප්‍රතික්‍රියා වේග සමීකරණ
+
+Equilibrium – සමතුලිතතාව
+රසායනික සමතුලිතතාව
+ගතික සමතුලිතතාව
+සමතුලිතතා නියතය
+Kc හා Kp
+ප්‍රතික්‍රියා කොටස
+Le Chatelier මූලධර්මය
+උෂ්ණත්වය, පීඩනය හා සාන්ද්‍රණයේ බලපෑම
+අම්ල හා භෂ්ම
+ප්‍රබල හා දුර්වල අම්ල
+ප්‍රබල හා දුර්වල භෂ්ම
+pH හා pOH
+අයනීකරණ නියතය
+බෆර් ද්‍රාවණ
+අම්ල-භෂ්ම ටයිට්‍රේෂන්
+ද්‍රාව්‍යතා සමතුලිතතාව
+ද්‍රාව්‍යතා ගුණිතය
+අවක්ෂේප ඇතිවීම
+
+Electrochemistry – විද්‍යුත් රසායනය
+ඔක්සිකරණ හා ඔක්සිහරණය
+විද්‍යුත් රසායනික කෝෂ
+ගැල්වානික් කෝෂ
+ඉලෙක්ට්‍රෝඩ විභවය
+සම්මත ඉලෙක්ට්‍රෝඩ විභවය
+විද්‍යුත් රසායනික ශ්‍රේණිය
+කෝෂ විභවය
+Nernst සමීකරණය
+විද්‍යුත් විච්ඡේදනය
+Faraday නියම
+විඛාදනය
+බැටරි හා ඒවායේ භාවිත
+
+Industrial Chemistry and Environmental Pollution – කර්මාන්ත රසායනය හා පරිසර දූෂණය
+කර්මාන්ත රසායනය හැඳින්වීම
+කර්මාන්ත ක්‍රියාවලීන්
+රසායනික නිෂ්පාදන
+එතනෝල් හා විනාකිරි
+අත්‍යවශ්‍ය තෙල්
+ජෛව ඩීසල්
+පොලිමර් හා ප්ලාස්ටික්
+ටයිටේනියම් ඩයොක්සයිඩ් නිෂ්පාදනය
+කර්මාන්තවල පාරිසරික බලපෑම්
+වායු, ජල හා පස දූෂණය
+දූෂණය අවම කිරීම හා පාලනය`;
+const CMA=`Real Number System – තාත්වික සංඛ්‍යා පද්ධතිය
+සංඛ්‍යා පද්ධතියේ විකාශනය
+ස්වාභාවික, පූර්ණ හා පරිමේය සංඛ්‍යා
+අපරිමේය සංඛ්‍යා
+තාත්වික සංඛ්‍යා
+සංඛ්‍යා රේඛාව
+දශම හා පුනරාවර්ත දශම
+Surds
+Surds සරල කිරීම හා හරය පරිමේයකරණය
+
+Functions – ශ්‍රිත
+ශ්‍රිත පිළිබඳ මූලික සංකල්ප
+නියත හා විචල්‍ය
+Domain
+Codomain
+Range
+One-to-one Functions
+Onto Functions
+Inverse Functions
+Constant Functions
+Linear Functions
+Modulus Functions
+Piecewise Functions
+Function Graphs
+Composite Functions
+
+Quadratic Functions – වර්ගජ ශ්‍රිත
+වර්ගජ ශ්‍රිත
+වර්ගජ සමීකරණ
+වර්ග පූර්ණ කිරීම
+විභේදකය (Discriminant)
+මූලවල ස්වභාවය
+මූලවල එකතුව හා ගුණිතය
+වර්ගජ ශ්‍රිතවල ප්‍රස්තාර
+උපරිම හා අවම අගයන්
+පොදු මූල සහිත සමීකරණ
+
+Polynomial Functions – බහුපද ශ්‍රිත
+බහුපද හැඳින්වීම
+බහුපදවල ගුණ
+බහුපදවල අනුපාත හා බෙදීම
+ඉතිරි ප්‍රමේය
+සාධක ප්‍රමේය
+බහුපදවල මූල
+බහුපද සමීකරණ විසඳීම
+
+Functions and Polynomials
+බහුපද ශ්‍රිත
+ශ්‍රිත හා බහුපද අතර සම්බන්ධතාව
+බහුපදවල මූල හා ප්‍රස්තාර
+බහුපද ශ්‍රිත ආශ්‍රිත ගැටලු
+
+Indices and Logarithms – දර්ශක හා ලඝුගණක
+දර්ශක නීති
+ඍණ හා භාගික දර්ශක
+ලඝුගණක හැඳින්වීම
+ලඝුගණක නීති
+ලඝුගණක සමීකරණ
+දර්ශක සමීකරණ
+
+Inequalities – අසමානතා
+තාත්වික සංඛ්‍යා අසමානතා
+රේඛීය අසමානතා
+වර්ගජ අසමානතා
+අසමානතා විසඳීම
+අසමානතා ප්‍රස්තාර මඟින් නිරූපණය
+
+Angular Measurement – කෝණික මිනුම්
+අංශක හා රේඩියන්
+කෝණ මිනුම් පරිවර්තනය
+චාප දිග
+වෘත්ත ඛණ්ඩවල වර්ගඵල
+
+Trigonometric Functions – ත්‍රිකෝණමිතික ශ්‍රිත
+ත්‍රිකෝණමිතික අනුපාත
+sin, cos හා tan
+ත්‍රිකෝණමිතික ශ්‍රිතවල ප්‍රස්තාර
+ප්‍රතිලෝම ත්‍රිකෝණමිතික ශ්‍රිත
+ත්‍රිකෝණමිතික සමීකරණ
+
+Trigonometric Identities – ත්‍රිකෝණමිතික අනන්‍යතා
+මූලික ත්‍රිකෝණමිතික අනන්‍යතා
+එකතුව හා වෙනස සූත්‍ර
+ද්විත්ව කෝණ සූත්‍ර
+අර්ධ කෝණ සූත්‍ර
+ත්‍රිකෝණමිතික ප්‍රකාශ සරල කිරීම
+අනන්‍යතා ඔප්පු කිරීම
+
+Sine Rule and Cosine Rule
+සයින් නියමය
+කෝසයින් නියමය
+ත්‍රිකෝණවල වර්ගඵලය
+ත්‍රිකෝණමිතික ගැටලු විසඳීම
+
+Inverse Trigonometric Functions
+ප්‍රතිලෝම ත්‍රිකෝණමිතික ශ්‍රිත
+ප්‍රධාන අගය පරාස
+ප්‍රතිලෝම ත්‍රිකෝණමිතික සමීකරණ
+ප්‍රතිලෝම ත්‍රිකෝණමිතික අනන්‍යතා
+
+Limits – සීමා
+සීමා පිළිබඳ සංකල්පය
+වම් සීමා හා දකුණු සීමා
+ශ්‍රිතවල සීමා
+අනන්තයේ සීමා
+සීමා ගණනය කිරීම
+සන්තතිකතාව
+
+Differentiation – අවකලනය
+අවකලනය හැඳින්වීම
+පළමු ව්‍යුත්පන්නය
+අවකලන නීති
+බල නියමය
+ගුණිත නියමය
+භාජක නියමය
+Chain Rule
+ත්‍රිකෝණමිතික ශ්‍රිත අවකලනය
+වක්‍රයක ස්පර්ශක හා අභිලම්බ
+
+Applications of Differentiation – අවකලනයේ යෙදීම්
+ශ්‍රිතවල වැඩිවීම හා අඩුවීම
+උපරිම හා අවම අගයන්
+හැරවුම් ලක්ෂ්‍ය
+වක්‍රවල ස්වභාවය
+චලිතයට අදාළ අවකලනය
+අනුපාතික වෙනස්වීම්
+
+Integration – අනුකලනය
+අනුකලනය හැඳින්වීම
+අවිනිශ්චිත අනුකලනය
+මූලික අනුකලන නීති
+ආදේශන ක්‍රමය
+කොටස් වශයෙන් අනුකලනය
+භාගික භාජන ක්‍රමය
+
+Applications of Integration – අනුකලනයේ යෙදීම්
+නිශ්චිත අනුකලනය
+වක්‍රයක් යට වර්ගඵලය
+වක්‍ර දෙකක් අතර වර්ගඵලය
+සීමා සහිත වර්ගඵල ගණනය
+
+Vectors – දෛශික
+දෛශික හැඳින්වීම
+දෛශික එකතු කිරීම හා අඩු කිරීම
+දෛශිකවල සංරචක
+ස්කේලර් ගුණිතය
+දෛශික ගුණිතය
+දෛශික අතර කෝණ
+දෛශික භාවිතයෙන් ගැටලු විසඳීම
+
+Straight Lines – සරල රේඛා
+සරල රේඛා
+බෑවුම
+රේඛා සමීකරණ
+රේඛා අතර කෝණ
+සමාන්තර හා ලම්බ රේඛා
+රේඛාවල ඡේදන ලක්ෂ්‍ය
+
+Circles – වෘත්ත
+වෘත්තයක සමීකරණය
+කේන්ද්‍රය හා අරය
+වෘත්තයක ස්පර්ශක
+වෘත්ත හා සරල රේඛා
+වෘත්තවල ඡේදනය
+
+Permutations and Combinations – සැකසුම් හා සංයෝජන
+ගණන් කිරීමේ මූලධර්ම
+Factorials
+සැකසුම්
+සංයෝජන
+සැකසුම් හා සංයෝජන ගැටලු
+
+Mathematical Induction – ගණිතමය අභ්‍යුහනය
+ගණිතමය අභ්‍යුහන මූලධර්මය
+ප්‍රකාශ ඔප්පු කිරීම
+ශ්‍රේණි හා එකතු කිරීම් ඔප්පු කිරීම
+
+Series – ශ්‍රේණි
+අනුක්‍රම
+සමාන්තර ශ්‍රේණි
+ගුණෝත්තර ශ්‍රේණි
+ශ්‍රේණිවල එකතුව
+අනන්ත ශ්‍රේණි
+
+Binomial Expansion – ද්විපද ප්‍රසාරණය
+ද්විපද ප්‍රමේය
+ද්විපද ප්‍රසාරණය
+සාමාන්‍ය පදය
+නිශ්චිත පදය සෙවීම
+
+Complex Numbers and Matrices – සංකීර්ණ සංඛ්‍යා හා න්‍යාස
+සංකීර්ණ සංඛ්‍යා හැඳින්වීම
+තාත්වික හා අතාත්වික කොටස්
+සංකීර්ණ සංඛ්‍යා එකතු කිරීම හා ගුණ කිරීම
+සංකීර්ණ සංඛ්‍යාවල මාපාංකය හා විස්තාරය
+Argand තලය
+සංකීර්ණ සංඛ්‍යාවල ධ්‍රැවීය ආකාරය
+න්‍යාස හැඳින්වීම
+න්‍යාස එකතු කිරීම හා ගුණ කිරීම
+න්‍යාසවල නිර්ණායක
+ප්‍රතිලෝම න්‍යාස
+න්‍යාස භාවිතයෙන් සමීකරණ විසඳීම`;
+const CMB=`Statics – ස්ථිති විද්‍යාව
+බල හැඳින්වීම
+සමතල බල පද්ධති
+බලවල සම්ප්‍රයුක්තය
+බල සංරචක
+බල සමතුලිතතාව
+Lami නියමය
+බල ඝූර්ණ
+ඝර්ෂණය
+ඝර්ෂණ සංගුණකය
+සීමාකාරී සමතුලිතතාව
+සන්ධි සහිත දඬු (Jointed Rods)
+රාමු ව්‍යුහ (Frameworks)
+ස්කන්ධ කේන්ද්‍රය
+
+Dynamics – ගති විද්‍යාව
+සරල රේඛාවක චලිතය
+විස්ථාපනය, වේගය හා ත්වරණය
+ඒකාකාර ත්වරණය
+චලිත සමීකරණ
+චලිත ප්‍රස්තාර
+සිරස් චලිතය
+ප්‍රක්ෂිප්ත චලිතය
+නිව්ටන්ගේ චලිත නියම
+සාපේක්ෂ චලිතය
+ගම්‍යතාව
+ආවේගය
+ගැටුම්
+කාර්යය, ශක්තිය හා ජවය
+ශක්ති සංස්ථිතිය
+වෘත්ත චලිතය
+කේන්ද්‍රාභිසාරී බලය
+සරල අනුවර්තී චලිතය
+
+Probability – සම්භාවිතාව
+සම්භාවිතාව හැඳින්වීම
+නියැදි අවකාශය
+සිදුවීම්
+සිදුවීම්වල එකතුව හා ඡේදනය
+අන්‍යෝන්‍ය වශයෙන් බැහැර සිදුවීම්
+ස්වායත්ත සිදුවීම්
+කොන්දේසි සහිත සම්භාවිතාව
+සම්භාවිතා ගණනය කිරීම්
+
+Statistics – සංඛ්‍යානය
+දත්ත හැඳින්වීම
+දත්ත වර්ගීකරණය
+සංඛ්‍යාත ව්‍යාප්තිය
+මධ්‍යන්‍යය
+මධ්‍යස්ථය
+බහුලකය
+විචලතාව
+සම්මත අපගමනය
+සංඛ්‍යාත්මක දත්ත විශ්ලේෂණය`;
+
+document.head.insertAdjacentHTML('beforeend',`<style>:root[data-theme="light"] .c.nphy{background:linear-gradient(150deg,#6b4cf0,#3b2fb8)}:root[data-theme="light"] .c.ncmb{background:linear-gradient(150deg,#2ea0ff,#2a5bd7)}:root[data-theme="light"] .c.nchm{background:linear-gradient(150deg,#c45cf2,#6a35c9)}
+.c.nt,.c.nt b{color:#fff}.c.nt .mu{color:rgba(255,255,255,.82);opacity:1}.c.nt .bar{background:rgba(255,255,255,.25)}.c.nt .b{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.35)}
+.rl{width:11px;height:11px;border-radius:50%;background:#ff3b45;flex:none;box-shadow:0 0 8px 2px rgba(255,59,69,.75);animation:rlp 1.6s ease-in-out infinite}
+@keyframes rlp{50%{box-shadow:0 0 14px 5px rgba(255,59,69,.95);transform:scale(1.15)}}
+.sub{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2px 14px;padding:4px 16px 14px;color:var(--tx)}
+.sti{display:flex;gap:10px;align-items:flex-start;padding:7px 8px;border-radius:10px;cursor:pointer}.sti:hover{background:var(--rb)}.sti input{width:18px;height:18px;margin-top:2px;accent-color:#ff9a4d;flex:none}.sti.on span{text-decoration:line-through;opacity:.55}
+.mh{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.b.sm{padding:3px 12px;font-size:12px}
+.sa{position:relative;overflow:hidden}.sa>b,.sa>span{position:relative;z-index:1}
+.sa::before{content:"";position:absolute;right:-24px;top:-24px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--k) 50%,transparent),transparent 70%);animation:pulse 3.5s ease-in-out infinite alternate}
+.sa::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.14) 50%,transparent 70%);transform:translateX(-120%);animation:sheen 5s ease-in-out infinite}
+.g4 .sa:nth-child(2)::after{animation-delay:.6s}.g4 .sa:nth-child(3)::after{animation-delay:1.2s}.g4 .sa:nth-child(4)::after{animation-delay:1.8s}
+@keyframes pulse{to{transform:scale(1.35);opacity:.55}}@keyframes sheen{40%,100%{transform:translateX(120%)}}
+.art{position:absolute;right:16px;top:50%;margin-top:-31px;width:62px;height:62px;fill:none;stroke:var(--k);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.art .at{stroke:var(--tr)}.art .af{animation:ringIn 1.3s ease}.ck{stroke-dasharray:40;stroke-dashoffset:40;animation:draw 1s .4s ease forwards}
+.bob{animation:bob 3s ease-in-out infinite alternate}.spin{transform-origin:30px 30px;animation:spin 6s linear infinite}
+@keyframes ringIn{from{stroke-dasharray:0 151}}@keyframes draw{to{stroke-dashoffset:0}}@keyframes bob{to{transform:translateY(-7px)}}@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:700px){.art{width:40px;height:40px;margin-top:-20px;right:10px}}
+</style>`);
+{const mk=(raw,pre)=>raw.trim().split(/\n\s*\n/).map((b,i)=>{const r=b.trim().split('\n').map(x=>x.trim()).filter(Boolean);return[pre+String(i+1).padStart(2,'0')+'. '+r[0],r.slice(1).map((x,j)=>(i+1)+'.'+(j+1)+' '+x),0]});
+const PN=['Measurement – මිනුම්','Mechanics – යාන්ත්‍ර විද්‍යාව','Oscillations and Waves – දෝලන හා තරංග','Thermal Physics – තාප භෞතික විද්‍යාව','Gravitational Field – ගුරුත්වාකර්ෂණ ක්ෂේත්‍රය','Electrostatic Field – ස්ථිති විද්‍යුත් ක්ෂේත්‍රය','Magnetic Field – චුම්බක ක්ෂේත්‍රය','Current Electricity – ධාරා විද්‍යුතය','Electronics – ඉලෙක්ට්‍රොනික විද්‍යාව','Mechanical Properties of Matter – පදාර්ථයේ යාන්ත්‍රික ගුණ','Matter and Radiation – පදාර්ථය හා විකිරණය'];
+SYL[0].lessons=SYL[0].lessons.map((l,i)=>[String(i+1).padStart(2,'0')+'. '+PN[i],l[1].map((x,j)=>(i+1)+'.'+(j+1)+' '+x),0]);
+SYL[1].lessons=mk(CMA,'A').concat(mk(CMB,'B'));SYL[2].lessons=mk(CHM,'');
+if(!S.mig2){const mv={'chm-5':'chm-10','chm-6':'chm-11','cmb-4':'cmb-25','cmb-5':'cmb-26'},o=S.lessons||{},n={};Object.keys(o).forEach(k=>{const[a,b]=k.split('-');if(a==='cmb'||a==='chm'){if(a==='chm'&&+b<5)n[k]=o[k];else if(mv[k])n[mv[k]]=o[k]}else n[k]=o[k]});S.lessons=n;S.mig2=1;Store.save(S)}}
+const subs=id=>{const l=L(id);return l.subs||(l.subs={})};
+const stl=l=>{const sb=subs(l.id);return l.sub.length?l.sub.map((x,i)=>`<label class="sti ${sb[i]?'on':''}"><input type="checkbox" data-st="${l.id}|${i}" ${sb[i]?'checked':''}><span>${esc(x)}</span></label>`).join(''):'<div class="mu">Sub-topics not added yet</div>'};
+function row(l){const p=pr(l.id),o=open[l.id],sb=subs(l.id),n=l.sub.filter((_,i)=>sb[i]).length,rd=S.red!==0&&l.sub.length&&!n;
+return `<div class="lr"><div class="lh"><input type="checkbox" class="m" ${p===100?'checked':''} data-main="${l.id}" aria-label="Complete ${esc(l.n)}">${rd?'<i class="rl" title="No sub-topic ticked yet"></i>':''}<span class="t" data-det="${l.id}">${esc(l.n)}<span class="mu"> · ${p}%${l.sub.length?' · '+n+'/'+l.sub.length+' topics':''}</span></span><span class="acts">${ACT.map(a=>`<span class="a ${L(l.id)[a[0]]?'on':''}" data-tg="${l.id}|${a[0]}">${a[1]} ${a[2]}</span>`).join('')}</span><button class="b" data-ex="${l.id}" aria-label="Toggle subtopics">${o?'▴':'▾'}</button></div>${bar(p)}${o?`<div class="sub">${stl(l)}</div>`:''}</div>`}
+const det0=det;det=function(id){const l=all().find(x=>x.id===id);return det0(id).replace(/<h4>Subtopics<\/h4><ol>[\s\S]*?<\/ol>/,'<h4>Sub-topics</h4><div class="sub">'+stl(l)+'</div>')};
+const sett1=sett;sett=function(){return sett1().replace('<input type="file"','<div class="f"><button class="b" id="rd">Red indicator light: '+(S.red!==0?'ON':'OFF')+'</button></div><input type="file"')};
+document.addEventListener('click',e=>{if(e.target.closest('#rd')){S.red=S.red===0?1:0;Store.save(S);render()}});
+document.addEventListener('change',e=>{const t=e.target;if(!t.dataset||!t.dataset.st)return;const[i,k]=t.dataset.st.split('|'),sb=subs(i);if(sb[k])delete sb[k];else sb[k]=1;const n=document.getElementById('nt'),lk=document.getElementById('lk');if(modal&&n){L(modal).notes=n.value;if(lk)L(modal).links=lk.value}Store.save(S);render()});
+function byMonth(A,m,sid){const g={};A.forEach(v=>{const k=v.mo||(v.up?v.up.slice(0,7):'0000');(g[k]=g[k]||[]).push(v)});
+const T=m&&cs.t&&C().teachers.find(t=>t.id===cs.t),Y=T&&T.years.find(y=>y.id===cs.y);((Y&&Y.months)||[]).forEach(k=>{g[k]=g[k]||[]});
+return Object.keys(g).sort((a,b)=>a==='0000'?1:b==='0000'?-1:a.localeCompare(b)).map(k=>`<h4 class="mh">${MN(k)} <span class="mu">· ${g[k].length} videos · ${g[k].filter(v=>v.done).length} done</span>${(m||sid)&&k!=='0000'?`<button class="b sm" data-c="addVm:${k}${sid?'|'+sid:''}">+ Add video</button>${m?`<button class="b sm dl" data-c="delM:${k}">Delete month</button>`:''}`:''}</h4><div class="vg">${g[k].map(v=>vcard(v,m)).join('')}</div>`).join('')}
+async function addVid(mo,sid){let tid=cs.t,yid=cs.y;
+if(sid){const T=C().teachers.filter(t=>t.subj===sid);if(!T.length)return alert('Add a teacher for this subject first (Teachers tab).');let t=T[0];if(T.length>1){const n=+prompt('Which teacher?\n'+T.map((x,i)=>(i+1)+'. '+x.name).join('\n'),'1');if(!T[n-1])return;t=T[n-1]}tid=t.id;yid=(t.years.find(y=>y.id===cs.y)||t.years[t.years.length-1]).id}
+const u=prompt('Paste YouTube URL');if(!u)return;const m=u.match(/(?:v=|youtu\.be\/|embed\/|shorts\/|live\/)([\w-]{11})/);if(!m)return alert('Invalid YouTube link');
+fastAdd(tid,yid,m[1],mo||'',!mo)}
+document.addEventListener('click',e=>{const c=e.target.closest('[data-c]');if(!c)return;const[a,x]=c.dataset.c.split(':');
+if(a==='addVm'){const[mo,sid]=x.split('|');addVid(mo,sid)}
+else if(a==='addM'){const T=C().teachers.find(t=>t.id===cs.t),Y=T&&T.years.find(y=>y.id===cs.y);if(!Y)return;pickMonth('Add month',colYear(),k=>{Y.months=Y.months||[];if(!Y.months.includes(k))Y.months.push(k);sr()})}});
+function sylHome(){const t=tot(),Q=2*Math.PI*24;return `<h2>Syllabus Tracker</h2><div class="g g4" style="margin:14px 0"><div class="c st sa"><svg viewBox="0 0 60 60" class="art"><circle cx="30" cy="30" r="24" class="at"/><circle cx="30" cy="30" r="24" class="af" stroke-dasharray="${Q*t.p/100} ${Q}" transform="rotate(-90 30 30)"/></svg><span class="mu">Overall</span><b data-n="${t.p}" data-s="%">${t.p}%</b></div>
+<div class="c st sa"><svg viewBox="0 0 60 60" class="art bob"><path d="M30 10l20 11-20 11-20-11z"/><path d="M10 31l20 11 20-11"/><path d="M10 40l20 11 20-11"/></svg><span class="mu">Total lessons</span><b data-n="${t.n}">${t.n}</b></div>
+<div class="c st sa"><svg viewBox="0 0 60 60" class="art"><circle cx="30" cy="30" r="22"/><path class="ck" d="M19 31l8 8 15-16"/></svg><span class="mu">Completed</span><b data-n="${t.d}">${t.d}</b></div>
+<div class="c st sa"><svg viewBox="0 0 60 60" class="art"><circle cx="30" cy="30" r="22"/><g class="spin"><path d="M30 30V16"/></g><path d="M30 30l8 5"/></svg><span class="mu">Remaining</span><b data-n="${t.n-t.d}">${t.n-t.d}</b></div></div><div class="g g3">${SYL.map(s=>`<div class="c nt n${s.id}"><div class="bigic">${ico(s.id)}</div><b>${s.name}</b><div class="mu">${sd(s)} / ${s.lessons.length} lessons</div>${bar(sp(s))}<button class="b" data-go="${s.id}">Open</button></div>`).join('')}</div>`}
+const R2=render;render=function(){R2()};
+
+document.head.insertAdjacentHTML('beforeend',`<style>.b.dl{color:#ff6b75;border-color:rgba(255,107,117,.4)}.b.dl:hover{background:rgba(255,107,117,.14)}
+.chipA{border:1px solid #34d399;color:#34d399;background:rgba(52,211,153,.12);border-radius:99px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;animation:rlp 2s ease-in-out infinite}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);max-width:min(560px,92vw);padding:12px 18px;border-radius:14px;background:var(--pop);color:var(--tx);border:1px solid var(--ac);box-shadow:0 14px 34px rgba(0,0,40,.45);opacity:0;pointer-events:none;transition:.3s;z-index:30}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:700px){.chipA{font-size:0;padding:8px}.chipA::before{content:"●";font-size:12px}}
+</style>`);
+const mkey=v=>v.mo||(v.up?v.up.slice(0,7):'0000'),autoOn=(t,y)=>!!(S.auto&&S.auto.on&&S.auto.tid===t&&S.auto.yid===y),YTR=/(?:youtube\.com\/(?:watch\?(?:[^\s]*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{11})/;
+function toast(m){let t=document.getElementById('tst');if(!t){t=document.createElement('div');t.id='tst';document.body.appendChild(t)}t.textContent=m;t.className='toast show';clearTimeout(t._h);t._h=setTimeout(()=>{t.className='toast'},4500)}
+async function autoAdd(id){const a=S.auto;if(!a||!a.on)return;const T=C().teachers.find(t=>t.id===a.tid),Y=T&&T.years.find(y=>y.id===a.yid);if(!Y){S.auto=null;Store.save(S);render();return}
+a.last=id;if(C().videos.some(v=>v.vid===id&&v.tid===a.tid&&v.yid===a.yid)){Store.save(S);return toast('Already added in '+T.name+' · '+Y.name)}
+const d=new Date();toast('Added to '+T.name+' · '+Y.name);await fastAdd(a.tid,a.yid,id,d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'),true)}
+async function fastAdd(tid,yid,id,mo,mv){const v={id:uid(),tid,yid,vid:id,title:'Loading title…',up:'',done:0,mo:mo||''};C().videos.push(v);sr();
+const TF=(u,ms)=>{const c=new AbortController();setTimeout(()=>c.abort(),ms);return fetch(u,{signal:c.signal})};
+const pT=TF('https://www.youtube.com/oembed?format=json&url='+encodeURIComponent('https://www.youtube.com/watch?v='+id),4000).then(r=>r.json()).then(j=>{v.title=j.title||'YouTube video '+id;sr()}).catch(()=>{v.title='YouTube video '+id;sr()});
+const pD=(async()=>{let up='';const key=S.ytKey;if(key){try{const j=await (await TF('https://www.googleapis.com/youtube/v3/videos?part=snippet&id='+id+'&key='+key,4000)).json();up=j.items[0].snippet.publishedAt.slice(0,10)}catch(e){}}
+if(!up){try{const t=await (await TF('https://api.allorigins.win/raw?url='+encodeURIComponent('https://www.youtube.com/watch?v='+id),6000)).text(),m=t.match(/itemprop="uploadDate" content="(\d{4}-\d{2}-\d{2})/)||t.match(/"publishDate":"(\d{4}-\d{2}-\d{2})/)||t.match(/"uploadDate":"(\d{4}-\d{2}-\d{2})/);if(m)up=m[1]}catch(e){}}
+if(up){v.up=up;if(mv)v.mo='';sr()}})();
+await Promise.all([pT,pD])}
+let _busy=0;async function pollClip(){return;if(!S.auto||!S.auto.on||_busy)return;_busy=1;try{const m=(await navigator.clipboard.readText()).match(YTR);if(m&&m[1]!==S.auto.last)await autoAdd(m[1])}catch(e){}_busy=0}
+window.addEventListener('focus',pollClip);document.addEventListener('visibilitychange',()=>{if(!document.hidden)pollClip()});
+document.addEventListener('paste',e=>{if(!S.auto||!S.auto.on||/INPUT|TEXTAREA/.test((e.target||{}).tagName))return;const m=((e.clipboardData&&e.clipboardData.getData('text'))||'').match(YTR);if(m)autoAdd(m[1])});
+function hashAdd(){const h=decodeURIComponent(location.hash||'');if(h.startsWith('#add=')){const m=h.slice(5).match(YTR);history.replaceState(null,'',location.pathname+location.search);if(m)autoAdd(m[1])}}
+window.addEventListener('hashchange',hashAdd);setTimeout(hashAdd,300);
+document.addEventListener('click',e=>{const c=e.target.closest('[data-c]');if(!c)return;const[a,x]=c.dataset.c.split(':');
+if(a==='delM'){const T=C().teachers.find(t=>t.id===cs.t),Y=T&&T.years.find(y=>y.id===cs.y),vs=C().videos.filter(v=>v.tid===cs.t&&v.yid===cs.y&&mkey(v)===x);if(confirm('Delete the month '+MN(x)+'?'+(vs.length?' Its '+vs.length+' video'+(vs.length>1?'s':'')+' will be kept and moved to "Date unknown".':''))){vs.forEach(v=>{v.mo='0000'});if(Y&&Y.months)Y.months=Y.months.filter(k=>k!==x);sr()}}
+else if(a==='moV'){const v=C().videos.find(v=>v.id===x);if(!v)return;const k0=mkey(v);pickMonth('Move video to month',k0==='0000'?colYear():+k0.slice(0,4),k=>{v.mo=k;sr()},k0)}
+else if(a==='auto'){if(autoOn(cs.t,cs.y))S.auto=null;else{S.auto={on:true,tid:cs.t,yid:cs.y,last:''};toast('Auto-add ON. Click YouTube links in Telegram – they are added here automatically (needs the Brave helper extension).')}Store.save(S);render()}
+else if(a==='autoOff'){S.auto=null;Store.save(S);render()}});
+const R3=render;render=function(){R3();const tr=document.querySelector('.trr');if(false){const T=C().teachers.find(t=>t.id===S.auto.tid);if(T)tr.insertAdjacentHTML('afterbegin',`<button class="chipA" data-c="autoOff" title="Click to turn off">● Auto-add: ${esc(T.name)}</button>`)}};
+
+
+const MNS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function colYear(){const T=C().teachers.find(t=>t.id===cs.t),Y=T&&T.years.find(y=>y.id===cs.y),ks=[...((Y&&Y.months)||[]),...C().videos.filter(v=>v.tid===cs.t&&v.yid===cs.y).map(mkey)].filter(k=>k&&k!=='0000').sort();return ks.length?+ks[ks.length-1].slice(0,4):new Date().getFullYear()}
+function pickMonth(title,year,cb,cur){let y=year||new Date().getFullYear();const o=document.createElement('div');o.className='ov';o.style.zIndex=40;
+const draw=()=>{o.innerHTML='<div class="md"><b style="font-size:18px">'+title+'</b><div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:12px 0"><button class="b" data-y="-1">‹</button><b style="font-size:18px">'+y+'</b><button class="b" data-y="1">›</button></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'+MNS.map((n,i)=>{const k=y+"-"+String(i+1).padStart(2,"0");return '<button class="b '+(k===cur?'on':'')+'" data-m="'+k+'">'+n+'</button>'}).join('')+'</div><div style="margin-top:12px"><button class="b" data-x="1">Cancel</button></div></div>'};
+draw();o.addEventListener('click',e=>{const t=e.target.closest('[data-y],[data-m],[data-x]');if(e.target===o||(t&&t.dataset.x)){o.remove();return}if(!t)return;e.stopPropagation();if(t.dataset.y){y+=+t.dataset.y;draw()}else if(t.dataset.m){o.remove();cb(t.dataset.m)}});document.body.appendChild(o)}
+function alExtAdd(id){if(page!=='teach'||!cs.t||!cs.y)return 'off';S.auto={on:true,tid:cs.t,yid:cs.y,last:''};try{autoAdd(id)}finally{S.auto=null;Store.save(S)}return 'ok'}
+
+/* ===== Calendar + day counter + notifications ===== */
+IC.cal='<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>';
+const pad=n=>String(n).padStart(2,'0'),dk=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const CK=()=>{const c=S.cal=S.cal||{};c.ev=c.ev||[];c.exam=c.exam||'2027-08-01';if(c.lead==null)c.lead=10;return c};
+let cv={y:new Date().getFullYear(),m:new Date().getMonth()},csel=dk(new Date()),cf={src:'c',ref:'',title:'',time:'18:00'};
+const daysLeft=()=>{const e=new Date(CK().exam+'T00:00:00'),n=new Date();n.setHours(0,0,0,0);return Math.round((e-n)/864e5)};
+const evOn=k=>CK().ev.filter(e=>e.d===k).sort((a,b)=>a.t.localeCompare(b.t));
+const WD=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const vurl=e=>{const v=C().videos.find(v=>v.id===e.vid);return v?'https://www.youtube.com/watch?v='+v.vid:''};
+function srcSel(){
+ if(cf.src==='v'){const vs=C().videos.filter(v=>!v.done);if(!vs.length)return '<div class="mu" style="margin-top:8px">No pending videos. Add videos in Teachers first.</div>';
+  return '<select data-cf="ref" style="width:100%;margin-top:8px"><option value="">Select video…</option>'+SYL.map(s=>{const A=vs.filter(v=>tOf(v).subj===s.id);return A.length?'<optgroup label="'+esc(s.name)+'">'+A.map(v=>'<option value="'+v.id+'" '+(cf.ref===v.id?'selected':'')+'>'+esc(tOf(v).name+' · '+v.title.slice(0,60))+'</option>').join('')+'</optgroup>':''}).join('')+'</select>'}
+ if(cf.src==='l')return '<select data-cf="ref" style="width:100%;margin-top:8px"><option value="">Select lesson…</option>'+SYL.map(s=>'<optgroup label="'+esc(s.name)+'">'+lessons(s).map(l=>'<option value="'+l.id+'" '+(cf.ref===l.id?'selected':'')+'>'+esc(l.n.slice(0,60))+'</option>').join('')+'</optgroup>').join('')+'</select>';
+ return ''}
+function calPage(){const c=CK(),tk=dk(new Date()),f=(new Date(cv.y,cv.m,1).getDay()+6)%7,dn=new Date(cv.y,cv.m+1,0).getDate(),dl=daysLeft(),ns='Notification' in window?Notification.permission:'unsupported';
+let cells='';for(let i=0;i<f;i++)cells+='<i></i>';
+for(let d=1;d<=dn;d++){const k=cv.y+'-'+pad(cv.m+1)+'-'+pad(d),E=evOn(k);cells+=`<div class="cd ${k===tk?'today':''} ${k===csel?'sel':''}" data-cd="${k}"><b>${d}</b>${E.slice(0,2).map(e=>`<span class="ce ${e.done?'dn':''}">${e.t} ${esc(e.title)}</span>`).join('')}${E.length>2?`<span class="mu cmore">+${E.length-2} more</span>`:''}<span class="cdots">${E.map(e=>`<i class="cdot ${e.done?'dn':''}"></i>`).join('')}</span></div>`}
+const E=evOn(csel),dt=new Date(csel+'T00:00:00').toLocaleDateString('en',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+return `<h2>📅 Calendar</h2>
+<div class="c cdn"><div><div class="mu">⏳ A/L 2027 countdown</div><div><b class="cbig">${Math.max(dl,0)}</b> days left</div><div class="mu">${dl>0?Math.floor(dl/7)+' weeks and '+dl%7+' days':'Exam date reached'}</div></div>
+<div><div class="mu">Exam start date (change to the official date)</div><input type="date" data-ce value="${c.exam}"></div>
+<div><div class="mu">Reminders</div><div class="acts" style="margin-top:4px"><button class="b ${ns==='granted'?'on':''}" data-cal="notif">🔔 ${ns==='granted'?'Notifications ON':'Enable notifications'}</button><select data-cl><option value="0" ${c.lead===0?'selected':''}>At the time</option><option value="5" ${c.lead===5?'selected':''}>5 min before</option><option value="10" ${c.lead===10?'selected':''}>10 min before</option><option value="30" ${c.lead===30?'selected':''}>30 min before</option><option value="60" ${c.lead===60?'selected':''}>1 hour before</option></select></div></div></div>
+<div class="cw"><div class="c"><div class="ch"><div class="acts"><button class="b" data-cm="-1" aria-label="Previous month">‹</button><button class="b" data-cm="1" aria-label="Next month">›</button><button class="b" data-cal="today">Today</button></div><b style="font-size:18px">${MNS[cv.m]} ${cv.y}</b></div>
+<div class="cg">${WD.map(x=>`<span class="mu cwd">${x}</span>`).join('')}${cells}</div></div>
+<div class="c"><b style="font-size:16px">${dt}</b>
+<div style="margin:10px 0">${E.length?E.map(e=>`<div class="ev ${e.done?'dn':''}"><input type="checkbox" class="m" data-ct="${e.id}" ${e.done?'checked':''} aria-label="Done"><div class="gr"><b>${e.t}</b> ${esc(e.title)}${e.vid&&vurl(e)?`<div><a href="${vurl(e)}" target="_blank" rel="noopener" style="color:var(--ac)">▶ Watch on YouTube</a></div>`:''}</div><button class="b dl" data-cx="${e.id}" aria-label="Delete">✕</button></div>`).join(''):'<div class="mu">Nothing planned for this day.</div>'}</div>
+<h4 style="margin:12px 0 6px">Add to this day</h4>
+<div class="f" style="margin:0"><select data-cf="src"><option value="c" ${cf.src==='c'?'selected':''}>Custom task</option><option value="v" ${cf.src==='v'?'selected':''}>Video</option><option value="l" ${cf.src==='l'?'selected':''}>Lesson</option></select><input type="time" data-cf="time" value="${cf.time}" style="flex:none;min-width:120px"></div>
+${srcSel()}<input data-cf="title" placeholder="${cf.src==='c'?'Title':'Note (optional)'}" value="${esc(cf.title)}" style="width:100%;margin-top:8px;background:var(--tr);border:1px solid var(--bd);border-radius:12px;padding:8px 12px">
+<button class="b p" data-cal="add" style="margin-top:10px">+ Add</button></div></div>`}
+PG.cal=calPage;
+function addEv(){const c=CK(),title=cf.title.trim(),e={id:uid(),d:csel,t:cf.time||'18:00',title:'',done:0,n:0};
+if(cf.src==='v'){const v=C().videos.find(v=>v.id===cf.ref);if(!v)return toast('Select a video first');e.vid=v.id;e.title=title||v.title}
+else if(cf.src==='l'){const l=all().find(l=>l.id===cf.ref);if(!l)return toast('Select a lesson first');e.lid=l.id;e.title=title||('Study: '+l.n)}
+else{if(!title)return toast('Enter a title');e.title=title}
+c.ev.push(e);cf.title='';cf.ref='';sr();toast('Added to '+csel);calCheck()}
+function askNotif(){if(!('Notification' in window))return toast('This browser does not support notifications');
+Promise.resolve(Notification.requestPermission()).then(p=>{toast(p==='granted'?'Notifications enabled':'Notifications are blocked. Allow them from the lock icon in the address bar.');if(p==='granted')try{new Notification('A/L 2027 Tracker',{body:'Reminders are on. You will be notified at your scheduled times.'})}catch(e){}render()})}
+function notify(e,diff){const m=Math.round(diff/6e4),body=m>0?'Starts in '+m+' min':'Time to start now',msg='📅 '+e.t+' · '+e.title;
+try{if('Notification' in window&&Notification.permission==='granted'){const n=new Notification(msg,{body,tag:e.id,requireInteraction:true});n.onclick=()=>{window.focus();page='cal';csel=e.d;cv={y:+e.d.slice(0,4),m:+e.d.slice(5,7)-1};render();n.close()}}}catch(x){}
+toast(msg+' — '+body)}
+function calCheck(){const c=CK(),now=Date.now(),lead=(c.lead||0)*6e4;let ch=0;c.ev.forEach(e=>{if(e.done||e.n)return;const due=new Date(e.d+'T'+e.t).getTime();if(isNaN(due))return;if(now>=due-lead&&now<due+12*36e5){e.n=1;ch=1;notify(e,due-now)}});if(ch)sv()}
+function schedVid(id){const v=C().videos.find(v=>v.id===id);if(!v)return;const o=document.createElement('div');o.className='ov';o.style.zIndex=40;
+o.innerHTML='<div class="md"><b style="font-size:18px">📅 Schedule video</b><div class="mu" style="margin:6px 0 10px">'+esc(v.title)+'</div><div class="f"><input type="date" id="sd" value="'+dk(new Date())+'"><input type="time" id="stm" value="18:00"></div><div class="acts"><button class="b p" data-ok="1">Schedule</button><button class="b" data-x="1">Cancel</button></div></div>';
+o.addEventListener('click',e=>{const t=e.target.closest('[data-ok],[data-x]');if(e.target===o||(t&&t.dataset.x)){o.remove();return}if(t&&t.dataset.ok){const d=o.querySelector('#sd').value,tm=o.querySelector('#stm').value||'18:00';if(!d)return;CK().ev.push({id:uid(),d,t:tm,title:v.title,vid:v.id,done:0,n:0});sv();o.remove();toast('Scheduled '+d+' '+tm);if(page==='cal')render()}});document.body.appendChild(o)}
+document.addEventListener('click',e=>{const sc=e.target.closest('[data-c^="sch:"]');if(sc){schedVid(sc.dataset.c.slice(4));return}
+const t=e.target.closest('[data-cd],[data-cx],[data-cal],[data-cm]');if(!t)return;const D=t.dataset;
+if(D.cd){csel=D.cd;cv={y:+D.cd.slice(0,4),m:+D.cd.slice(5,7)-1};render()}
+else if(D.cx){const c=CK();c.ev=c.ev.filter(x=>x.id!==D.cx);sr()}
+else if(D.cm){const d=new Date(cv.y,cv.m+ +D.cm,1);cv={y:d.getFullYear(),m:d.getMonth()};render()}
+else if(D.cal==='today'){const n=new Date();cv={y:n.getFullYear(),m:n.getMonth()};csel=dk(n);render()}
+else if(D.cal==='notif')askNotif();else if(D.cal==='add')addEv()});
+document.addEventListener('input',e=>{const f=e.target.dataset&&e.target.dataset.cf;if(f==='title')cf.title=e.target.value;else if(f==='time')cf.time=e.target.value});
+document.addEventListener('change',e=>{const t=e.target,D=t.dataset||{};
+if(D.cf==='src'){cf.src=t.value;cf.ref='';render()}else if(D.cf==='ref')cf.ref=t.value;else if(D.cf==='time')cf.time=t.value;
+else if(D.ce!==undefined){CK().exam=t.value||CK().exam;sr()}else if(D.cl!==undefined){CK().lead=+t.value;sv()}
+else if(D.ct){const x=CK().ev.find(x=>x.id===D.ct);if(x){x.done=x.done?0:1;sr()}}});
+const R4=render;render=function(){R4();const tr=document.querySelector('.trr');if(tr)tr.insertAdjacentHTML('afterbegin','<button class="cdp" data-nav="cal" title="Days left to the A/L 2027 exam">⏳ '+Math.max(daysLeft(),0)+'<span> days</span></button>')};
+setInterval(calCheck,15000);setTimeout(calCheck,1500);
+document.head.insertAdjacentHTML('beforeend',`<style>
+:root{--fs:clamp(14px,.35vw + 12.6px,17px)}body{font-size:var(--fs);min-height:100dvh}
+.shell{max-width:min(1500px,100%)}@media(min-width:1800px){.shell{max-width:1760px}}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr))}.g4{grid-template-columns:repeat(auto-fit,minmax(min(130px,100%),1fr))}.vg{grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr))}
+.md{max-width:min(560px,100%)}.mn{min-width:0}img,svg{max-width:100%}
+.cdp{border:1px solid var(--bd);background:var(--rb);color:var(--tx);border-radius:99px;padding:7px 14px;font-weight:700;cursor:pointer;white-space:nowrap;flex:none}.cdp:hover{border-color:var(--ac)}
+.cdn{display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin:12px 0}.cdn>div{min-width:0}.cbig{font-size:46px;line-height:1;color:var(--ac)}
+.cw{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(280px,1fr);gap:14px;align-items:start}
+.cg{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-top:10px}.cwd{text-align:center;font-size:12px;padding:2px 0}
+.cd{min-height:88px;border:1px solid var(--bd);border-radius:12px;padding:5px 6px;cursor:pointer;background:var(--rb);overflow:hidden;font-size:12px;transition:border-color .2s,background .2s}.cd:hover{border-color:var(--ac)}.cd b{display:block;font-size:13px}
+.cd.today{outline:2px solid #ffc58f}.cd.sel{background:rgba(255,154,77,.28);border-color:var(--ac)}
+.ce{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:6px;padding:1px 5px;margin-top:3px;background:rgba(255,154,77,.35);color:var(--tx)}.ce.dn{text-decoration:line-through;opacity:.55}.cmore{display:block;font-size:11px;margin-top:2px}
+.cdots{display:none;flex-wrap:wrap;gap:3px;margin-top:3px}.cdot{width:6px;height:6px;border-radius:50%;background:#ff9a4d}.cdot.dn{opacity:.35}
+.ev{display:flex;gap:10px;align-items:center;padding:8px;border-radius:12px;background:var(--rb);margin-bottom:6px}.ev.dn .gr{text-decoration:line-through;opacity:.6}.ev .gr{min-width:0;overflow-wrap:anywhere}
+@media(max-width:900px){.cw{grid-template-columns:1fr}}
+@media(max-width:700px){
+ .shell{padding:8px}.top{gap:6px;padding:8px 10px;border-radius:18px}.c{padding:12px;border-radius:18px}h2{font-size:20px}h3{font-size:16px}
+ .cdp span{display:none}.cdn{gap:14px}.cbig{font-size:36px}
+ .cd{min-height:50px;padding:3px}.ce,.cmore{display:none}.cdots{display:flex}.cg{gap:3px}
+ .lh .t{min-width:100%}.acts{gap:5px}.f input,.f select{min-width:0;flex:1 1 140px}.sub{grid-template-columns:1fr}
+ .hero{padding:18px;min-height:0}.dc{width:36px}.mh{gap:6px}.vg{gap:10px}.tl{padding:9px}.ib,.me{width:36px;height:36px}.trr{gap:6px}
+}
+@media(max-width:420px){.tn{gap:0}.tl{padding:8px 7px}.top .logo i{width:30px;height:30px}.dg{gap:12px}.col{gap:12px}}
+
+@media(max-width:700px){
+ .tn{position:fixed;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));z-index:20;background:var(--pop);border:1px solid var(--bd);border-radius:20px;padding:5px;justify-content:space-around;gap:0;box-shadow:0 10px 30px rgba(0,0,20,.5);overflow:hidden}
+ .tn .tl{flex:1;justify-content:center;padding:10px 4px;border-radius:14px}
+ .tl.on{box-shadow:none;background:rgba(255,154,77,.25)}
+ .top{justify-content:space-between}.top .tn~.trr{margin-left:auto}
+ body{padding-bottom:84px}.toast{bottom:92px}
+}
+@media(max-height:520px) and (orientation:landscape){.top{position:static}}
+</style>`);
+
+const HART=`<svg class="hart" viewBox="0 0 800 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="hsk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4b36a0"/><stop offset=".45" stop-color="#d0609f"/><stop offset=".8" stop-color="#ffc08a"/></linearGradient><linearGradient id="hwf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#9fd8ff"/></linearGradient><linearGradient id="hbl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b2a78"/><stop offset="1" stop-color="#150f33"/></linearGradient><radialGradient id="hsn" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff2c8" stop-opacity=".85"/><stop offset="1" stop-color="#fff2c8" stop-opacity="0"/></radialGradient></defs><rect width="800" height="320" fill="url(#hsk)"/><circle cx="400" cy="170" r="130" fill="url(#hsn)"/><polygon points="0,240 130,150 275,240" fill="#6a4bb0"/><polygon points="525,240 680,135 800,240" fill="#6a4bb0"/><polygon points="235,245 400,50 575,245" fill="#7d5cc8"/><polygon points="400,50 475,160 440,170 400,125 360,168 328,155" fill="#a98cf0"/><polygon points="400,50 428,92 400,84 376,96" fill="#f3eaff"/><polygon points="400,125 440,170 475,160 575,245 430,245" fill="#5a3fa0" opacity=".6"/><g fill="url(#hbl)"><rect x="0" y="150" width="46" height="190"/><rect x="46" y="185" width="38" height="155"/><rect x="84" y="120" width="52" height="220"/><rect x="136" y="170" width="40" height="170"/><rect x="176" y="205" width="36" height="135"/><rect x="588" y="200" width="36" height="140"/><rect x="624" y="165" width="42" height="175"/><rect x="666" y="125" width="52" height="215"/><rect x="718" y="180" width="38" height="160"/><rect x="756" y="140" width="44" height="200"/></g><g fill="#ffb36b" opacity=".85"><rect x="8" y="170" width="5" height="7"/><rect x="22" y="170" width="5" height="7"/><rect x="8" y="200" width="5" height="7"/><rect x="30" y="215" width="5" height="7"/><rect x="92" y="140" width="5" height="7"/><rect x="106" y="140" width="5" height="7"/><rect x="92" y="170" width="5" height="7"/><rect x="120" y="170" width="5" height="7"/><rect x="144" y="190" width="5" height="7"/><rect x="158" y="190" width="5" height="7"/><rect x="144" y="220" width="5" height="7"/><rect x="184" y="225" width="5" height="7"/><rect x="196" y="225" width="5" height="7"/><rect x="596" y="220" width="5" height="7"/><rect x="606" y="240" width="5" height="7"/><rect x="632" y="185" width="5" height="7"/><rect x="646" y="185" width="5" height="7"/><rect x="632" y="215" width="5" height="7"/><rect x="676" y="145" width="5" height="7"/><rect x="692" y="145" width="5" height="7"/><rect x="676" y="175" width="5" height="7"/><rect x="704" y="175" width="5" height="7"/><rect x="726" y="200" width="5" height="7"/><rect x="740" y="200" width="5" height="7"/><rect x="764" y="160" width="5" height="7"/><rect x="780" y="160" width="5" height="7"/><rect x="764" y="190" width="5" height="7"/></g><polygon points="385,240 415,240 570,320 230,320" fill="#4a6fd8"/><polygon points="393,240 407,240 475,320 325,320" fill="#8fd3ff" opacity=".8"/><rect x="391" y="125" width="18" height="120" fill="url(#hwf)" opacity=".95"/><ellipse cx="90" cy="318" rx="110" ry="34" fill="#4a2c86"/><ellipse cx="720" cy="320" rx="120" ry="36" fill="#4a2c86"/><ellipse cx="300" cy="313" rx="60" ry="16" fill="#6a3fa8"/><ellipse cx="500" cy="315" rx="55" ry="15" fill="#6a3fa8"/><g fill="#ffd166"><circle cx="228" cy="262" r="3"/><circle cx="572" cy="262" r="3"/><circle cx="214" cy="270" r="2"/><circle cx="586" cy="270" r="2"/></g></svg>`;
+/* ===== Sunset-violet theme (reference video), low-motion ===== */
+document.head.insertAdjacentHTML('beforeend',`<style>
+:root{--bg:#14112b;--card:#1b1738;--rb:#262050;--pop:#171331;--tx:#f4f1ff;--mu:#a59fca;--bd:rgba(255,255,255,.09);--ac:#ff9a5a;--ok:#34d399;--tr:rgba(255,255,255,.1);--fill:linear-gradient(90deg,#ff9a5a,#f2709c)}
+:root[data-theme="light"]{--bg:#f6eff8;--card:#fff;--rb:#f3ebf8;--pop:#fff;--tx:#241a3b;--mu:#7a6d93;--bd:rgba(60,30,90,.12);--ac:#e8632f;--ok:#059669;--tr:rgba(60,30,90,.1);--fill:linear-gradient(90deg,#ff9a5a,#f2709c)}
+/* small, cheap motion only: opacity/transform, short, no blur, no infinite loops */
+.bob,.spin,.rl,.chipA,.sq,.sa::before,.sa::after,.dc.st::after,.top.sw .tl.on .ic{animation:none!important}
+@keyframes pgIn{from{opacity:0;transform:translateY(10px)}}
+@keyframes popIn{from{opacity:0;transform:scale(.97)}}
+.mn.pg>*:not(.ov){animation:pgIn .25s ease-out backwards;animation-delay:calc(var(--i,0)*30ms)}
+.mn.pg .g>*,.mn.pg .dg .col>*{animation:pgIn .22s ease-out backwards;animation-delay:calc(var(--j,0)*25ms)}
+.md{animation:popIn .16s ease-out}
+.ov{animation:none}
+.cl,.c.cl,.pill,.b,.a,.cd,.ev,.rw{transition:transform .15s ease,border-color .15s,background .15s}
+.cl:hover,.pill:hover{transform:translateY(-3px)}
+.b:active,.a:active,.pill:active{transform:scale(.97)}
+.cd:hover{transform:translateY(-2px)}
+.bar i{transition:width .45s ease}
+.toast{transition:opacity .2s ease,transform .2s ease}
+body{background:linear-gradient(180deg,#14112b 0%,#1a1340 55%,#26144a 100%);background-attachment:scroll}
+:root[data-theme="light"] body{background:linear-gradient(180deg,#f6eff8,#fde8dc);background-attachment:scroll}
+.top{background:rgba(23,19,49,.94);border:0;border-bottom:1px solid var(--bd);border-radius:16px;box-shadow:none;backdrop-filter:none}
+:root[data-theme="light"] .top{background:rgba(255,255,255,.94)}
+.logo b{letter-spacing:.28em;font-weight:600;font-size:15px}.logo span{color:#ff9a5a}
+.logo i{background:linear-gradient(135deg,#ff9a5a,#f2709c);box-shadow:none;border-radius:10px}
+.tl{font-size:11px;letter-spacing:.16em;font-weight:600;border-radius:10px}
+.tl.on,:root[data-theme="light"] .tl.on{background:transparent;color:var(--tx);box-shadow:inset 0 -2px #ff9a5a}
+.me{background:linear-gradient(135deg,#8b5cf6,#f2709c)}.ib:hover{transform:none}
+.c,.lr{background:var(--card);border:1px solid var(--bd);box-shadow:0 6px 18px rgba(0,0,0,.22);border-radius:18px;backdrop-filter:none}
+:root[data-theme="light"] .c,:root[data-theme="light"] .lr{background:#fff;box-shadow:0 6px 18px rgba(90,50,120,.1)}
+.c,.b,.rw,.pill,.cd{transition:border-color .15s,background .15s}
+
+.g4 .st:nth-child(4n+1){--k:#ff9a5a}.g4 .st:nth-child(4n+2){--k:#f2709c}.g4 .st:nth-child(4n+3){--k:#a78bfa}.g4 .st:nth-child(4n){--k:#ffd166}
+.g4 .st:nth-child(n){background:linear-gradient(160deg,color-mix(in srgb,var(--k) 20%,var(--card)),var(--card));border:1px solid color-mix(in srgb,var(--k) 45%,transparent);color:var(--tx)}
+:root[data-theme="light"] .g4 .st:nth-child(n){background:linear-gradient(160deg,#fff,color-mix(in srgb,var(--k) 16%,#fff))}
+.sa::before,.sa::after{display:none}
+.c.nphy,:root[data-theme="light"] .c.nphy{background:linear-gradient(150deg,#8b5cf6,#d9558f)}
+.c.ncmb,:root[data-theme="light"] .c.ncmb{background:linear-gradient(150deg,#4f46d8,#8b5cf6)}
+.c.nchm,:root[data-theme="light"] .c.nchm{background:linear-gradient(150deg,#f2709c,#ff9a5a)}
+.s-phy{background:linear-gradient(135deg,#8b5cf6,#d9558f)}.s-cmb{background:linear-gradient(135deg,#4f46d8,#8b5cf6)}.s-chm{background:linear-gradient(135deg,#f2709c,#ff9a5a)}
+.b{background:var(--rb);border:1px solid var(--bd)}
+.b.p,.a.on,.b.on{background:linear-gradient(90deg,#ff9a5a,#f2709c);color:#2a0f2a;border-color:transparent;box-shadow:none;font-weight:700}
+.b.lt{background:#fff;color:#241a3b;border-color:#fff;font-weight:700;padding:9px 28px;margin-top:14px}
+.rb{background:linear-gradient(135deg,#ff9a5a,#f2709c);box-shadow:none}.rb:hover{transform:none}
+.dc{background:rgba(255,255,255,.14)}.dc.on{background:linear-gradient(#ffb98a,#f2709c);box-shadow:none;transform:none}
+.rf{stroke:#ff9a5a}.bar i{background:var(--fill)}.bar.ok i{background:var(--ok)}
+.cdp{background:var(--rb)}.cbig{color:#ff9a5a}
+h2{font-weight:600;letter-spacing:-.01em}
+.hero{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;min-height:330px;padding:26px 18px 22px;background:#2a1d55;box-shadow:none;border-radius:22px}
+.hero::before{display:none}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,17,43,0) 45%,rgba(20,17,43,.62));z-index:0}
+.hero>*{position:relative;z-index:1}
+.hero>.hart{position:absolute!important;inset:0;width:100%;height:100%;z-index:0}
+.hero small{letter-spacing:.2em;text-transform:uppercase;font-size:11px;opacity:.9}
+.hk{font-size:clamp(20px,3.4vw,32px);font-weight:700;letter-spacing:.5em;margin-bottom:6px;text-shadow:0 2px 14px rgba(0,0,0,.4)}
+.hero h2{max-width:92%;margin:8px 0 14px;font-size:clamp(17px,2.2vw,22px);font-weight:600}
+.dcs{justify-content:center}
+@media(max-width:700px){.hero{min-height:300px}.hk{letter-spacing:.32em}.hero h2{max-width:100%}}
+</style>`);
+S.auto=null;
+snap();
+render();
+
+</script>
+</body>
+</html>
